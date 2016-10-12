@@ -10,12 +10,33 @@ sudo apt-get install -y nodejs
 sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils
 
 
-echo "### install mysql ###"
-sudo apt-get install debconf-utils -y
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password 1234"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 1234"
+#echo "### install mysql ###"
+#sudo apt-get install debconf-utils -y
+#sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password 1234"
+#sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 1234"
 
-sudo apt-get install mysql-server -y
+#sudo apt-get install mysql-server -y
+
+#node
+echo "### install nodejs###"
+sudo apt-get install -y python-software-properties python g++ make
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+node -v
+npm -v
+
+#mongodb
+echo "### mongodb ###"
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+#mongo 
+
+#nodejs tools
+echo "### install nodejs tools###"
+sudo npm install -g grunt-cli yo generator-meanjs
 
 echo "### install bower ###"
 sudo apt-get install curl -y
@@ -31,7 +52,7 @@ npm install express -g
 echo "### set up project ###"
 sudo mkdir /var/www
 cd /var/www/
-nodemon main.js
+nodemon server.js
 
 #echo "# bootstrap.sql #"
 #mysql < sql/bootstrap.sql -u root -p1234

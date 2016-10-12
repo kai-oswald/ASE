@@ -1,2 +1,2 @@
 cd /var/www/
-nodemon main.js
+nodemon server.js
