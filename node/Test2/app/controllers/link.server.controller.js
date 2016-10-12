@@ -30,6 +30,9 @@ exports.list = function(req, res, next) {
     });
 };
 
+exports.text = function(req, res) {
+    console.log(req.body);
+}
 
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
