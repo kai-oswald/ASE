@@ -1,2 +1,12 @@
+#!/bin/bash
+
 cd /var/www/
-nodemon main.js
+export NODE_ENV=development
+echo "### Checking node-modules ###"
+npm install
+echo "### Checking bower-modules ###"
+bower install --allow-root
+echo "### Running bowcat ###"
+bowcat -m -o lib
+echo "### Starting Node at http://localhost:8001 ###"
+nodemon -L server

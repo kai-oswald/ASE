@@ -1,0 +1,14 @@
+{
+  "name": "mytestapplication",
+  "description": "Test",
+  "main": "index.js",
+  "authors": [
+    "Lennart Gustafsson <l.gustafsson@web.de>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kai-oswald/ASE",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.5.8"
+  }
+}
