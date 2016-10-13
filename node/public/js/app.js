@@ -3,7 +3,7 @@ $(document).ready(function() {
         $(this).html('<i class="fa fa-refresh fa-spin"></i>');
         // send login information to server and validate
         // success: log user in, disable VIP Code input
-        // failure: show error message, reset inputs        
+        // failure: show error message, reset inputs
         $(this).delay(1000).queue(function(n) {
             var code = $(".login-form").val();
             if (code !== "test") {
@@ -28,7 +28,7 @@ $(document).ready(function() {
         var url = $(".input-url").val();
         console.log(url);
         var json = {
-          "shortlink": "bcs",
+          "shortlink": "hello",
           "longlink": url
         }
         // validate url
@@ -40,7 +40,7 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(res, status) {
                     if (res !== null) {
-                        $(".result").html("Your shortened link: " + "<a href='" + res + "'>" + res + "</a>");
+                        $(".result").html("Your shortened link: " + "<a href='" + res.shortlink + "'>" + res.shortlink + "</a>");
                     }
                 },
                 error: function(obj, status, err) {
