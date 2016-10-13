@@ -2,13 +2,16 @@
   "name": "mytestapplication",
   "version": "1.0.0",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.2",
-    "express": "^4.14.0",
-    "gulp": "latest",
-    "mongoose": "^4.6.3",
-    "multer": "^1.2.0"
+    "body-parser": "",
+    "cookie-parser": "*",
+    "ejs": "*",
+    "express": "*",
+    "gulp": "*",
+    "mongoose": "*",
+    "multer": "*",
+    "grunt-cli": "*",
+    "yo": "*",
+    "generator-meanjs": "*"
   },
   "description": "Test",
   "main": "index.js",
