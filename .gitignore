@@ -6,3 +6,6 @@ node/node_modules
 
 # Bower
 node/bower_components
+
+# bowcat
+node/build
