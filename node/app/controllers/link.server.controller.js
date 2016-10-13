@@ -9,9 +9,20 @@ exports.render = function(req, res) {
 exports.create = function(req, res, next) {
     //TODO: Formatlong link into right format! Access about req.body.longlink...
     var link = new Link(req.body);
-    if (link.shortlink=="") {
-      link.shortlink=randomText();
+    console.log(link.shortlink);    if (link.shortlink == "") {
+        link.shortlink = randomText();
     }
+    Link.find({
+        "longlink": link.longlink
+    }, function(err, docs) {
+        if (err) {
+            return next(err);
+        } else {
+            console.log(docs);
+            if (docs.length != 0) {
+                link.shortlink = "/l/" + docs[0].shortlink;
+                res.json(link);
+            } else {
     link.save(function(err) {
         if (err) {
             return next(err);
@@ -19,6 +30,9 @@ exports.create = function(req, res, next) {
             // TODO: temp fix
             link.shortlink = "/l/" + link.shortlink;
             res.json(link);
+        }
+    });
+            }
         }
     });
 };
@@ -68,12 +82,11 @@ exports.update = function(req, res, next) {
     });
 };
 
-function randomText()
-{
+function randomText() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 5; i++ )
+    for (var i = 0; i < 5; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
