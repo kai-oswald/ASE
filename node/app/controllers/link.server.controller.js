@@ -9,7 +9,6 @@ exports.render = function(req, res) {
 exports.create = function(req, res, next) {
     //TODO: Formatlong link into right format! Access about req.body.longlink...
     var link = new Link(req.body);
-    console.log(link.shortlink);
     if (link.shortlink=="") {
       link.shortlink=randomText();
     }

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    new Clipboard('.btn');
     $(".btn-login").click(function() {
         $(this).html('<i class="fa fa-refresh fa-spin"></i>');
         // send login information to server and validate
@@ -19,8 +20,8 @@ $(document).ready(function() {
 
     // VIP CODE: listen for enter key press
     $(".login-form").keypress(function(e) {
-      if (e.keyCode == 13)
-          $('.btn-login').click();
+        if (e.keyCode == 13)
+            $('.btn-login').click();
     });
 
     // make request to shorten link on button click
@@ -28,10 +29,10 @@ $(document).ready(function() {
         var url = $(".input-url").val();
         console.log(url);
         var json = {
-          "shortlink": "",
-          "longlink": url
-        }
-        // validate url
+                "shortlink": "",
+                "longlink": url
+            }
+            // validate url
         if (isURL(url)) {
             $.ajax({
                 url: "/link",
@@ -40,7 +41,12 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(res, status) {
                     if (res !== null) {
-                        $(".result").html("Your shortened link: " + "<a href='" + res.shortlink + "'>" + res.shortlink + "</a>");
+                        $(".input-url").val(res.shortlink);
+                        $(".input-url").select();
+                        $(".result").append("<div class='row'>");
+                        $(".result").append(res.longlink + ": " + "<a href='" + res.shortlink + "'>" + res.shortlink + "</a>");
+                        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
+                        $(".result").append("</div>");
                     }
                 },
                 error: function(obj, status, err) {
@@ -63,8 +69,8 @@ $(document).ready(function() {
     });
     var count = 36187;
     setInterval(function() {
-      var rnd = Math.floor(Math.random() * 100);
-      count+=rnd;
+        var rnd = Math.floor(Math.random() * 100);
+        count += rnd;
         $(".count").html(count);
     }, 1000);
 });
@@ -72,11 +78,21 @@ $(document).ready(function() {
 
 // validates a URL
 function isURL(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  return pattern.test(str);
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+}
+
+function copyToClipboard() {
+    new Clipboard('.input-url', {
+        text: function(trigger) {
+            console.log(trigger);
+            return trigger.getAttribute('aria-label');
+        }
+    });
+
 }
