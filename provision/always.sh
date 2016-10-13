@@ -3,7 +3,7 @@
 cd /var/www/
 export NODE_ENV=development
 echo "### Checking node-modules ###"
-npm install
+npm install --no-bin-links
 echo "### Checking bower-modules ###"
 bower install --allow-root
 echo "### Running bowcat ###"
