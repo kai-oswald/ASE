@@ -1,7 +1,7 @@
 # ASE:
 [![Join the chat at https://gitter.im/ASEASE/Lobby](https://badges.gitter.im/ASEASE/Lobby.svg)](https://gitter.im/ASEASE/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
-# System bzw. Anwendung:
+# System/Anwendung:
 Diese Anwendung soll ein URL Shortener werden. Die Grundfunktion soll dabei das verkürzen eines Links sein, der dann auf die entsprechende Weiterleitung verweist. 
 Zusätzliche Optionen die, je nach Fortschritt des Projektes, hinzugefügt werden können, sind folgende:
 - Benutzerverwaltung (Bsp.: Gespeicherte Links)
@@ -14,3 +14,8 @@ Zusätzliche Optionen die, je nach Fortschritt des Projektes, hinzugefügt werde
 - Angular - frontend
 - maybe express as NodeJS Framework
 - maybe "Silenium" Tests for GUI Tests
+
+# Bibliotheken:
+- NotieJS
+- JQuery
+- Bootstrap
