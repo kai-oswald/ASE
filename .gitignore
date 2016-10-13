@@ -1,0 +1,8 @@
+### Vagrant ###
+.vagrant/
+
+# Node
+node/node_modules
+
+# Bower
+node/bower_components

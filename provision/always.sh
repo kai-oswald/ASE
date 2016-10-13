@@ -1,3 +1,6 @@
-export NODE_ENV=development
 cd /var/www/
-nodemon server.js
+export NODE_ENV=development
+npm install
+bower install
+bowcat -m
+nodemon server
