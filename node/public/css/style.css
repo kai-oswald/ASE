@@ -22,3 +22,7 @@ body {
 .centered {
   text-align: center;
 }
+
+.btn-shorten {
+  text-transform: uppercase;
+}
