@@ -28,7 +28,7 @@ $(document).ready(function() {
         var url = $(".input-url").val();
         console.log(url);
         var json = {
-          "shortlink": "hello",
+          "shortlink": "",
           "longlink": url
         }
         // validate url
