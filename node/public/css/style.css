@@ -1,0 +1,28 @@
+html {
+  height: 100%;
+}
+body {
+  padding-top: 70px;
+  height: 100%;
+}
+.main {
+    padding: 5%;
+}
+.result {
+  margin-top: 20px;
+}
+
+.stats {
+  background: yellow;
+  height: 100px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.btn-shorten {
+  text-transform: capitalize;;
+}

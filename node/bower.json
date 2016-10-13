@@ -9,6 +9,8 @@
   "homepage": "https://github.com/kai-oswald/ASE",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "notie": "^3.9.4",
+    "clipboard": "^1.5.12"
   }
 }

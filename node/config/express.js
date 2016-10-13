@@ -18,6 +18,7 @@ module.exports = function() {
     require('../app/routes/link.server.routes.js')(app);
 
     app.use(express.static('./public'));
+    app.use(express.static('./bower_components'));
 
     return app;
 };
