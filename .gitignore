@@ -8,4 +8,4 @@ node/node_modules
 node/bower_components
 
 # bowcat
-node/build
+node/lib

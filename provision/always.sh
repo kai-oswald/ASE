@@ -7,6 +7,6 @@ npm install
 echo "### Checking bower-modules ###"
 bower install --allow-root
 echo "### Running bowcat ###"
-bowcat -m
-echo "### Staring Node at http://localhost:8001 ###"
-nodemon server
+bowcat -m -o lib
+echo "### Starting Node at http://localhost:8001 ###"
+nodemon -L server
