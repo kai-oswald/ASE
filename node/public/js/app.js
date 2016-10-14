@@ -1,31 +1,40 @@
-$(document).ready(function() {
+$(document).ready(function () {
     new Clipboard('.btn');
-    $(".btn-login").click(function() {
-        $(this).html('<i class="fa fa-refresh fa-spin"></i>');
+    $(".btn-login").click(function () {
+        var $btn = $(this);
+        var $form = $(".login-form");
+        $btn.html('<i class="fa fa-refresh fa-spin"></i>');
         // send login information to server and validate
-        // success: log user in, disable VIP Code input
-        // failure: show error message, reset inputs
-        $(this).delay(1000).queue(function(n) {
-            var code = $(".login-form").val();
-            if (code !== "test") {
-                $(".login-form").prop("disabled", false);
-                $(this).html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
-            } else {
-                $(".login-form").prop("disabled", true);
-                $(this).html('<i class="fa fa-sign-out" aria-hidden="true"></i>');
-            }
+        
+        // simulate login with a delay of 1sec
+        $btn.delay(1000).queue(function (n) {
+            var code = $form.val();
+            $.ajax({
+                url: "/login",
+                data: code,
+                success: function () {
+                    // success: log user in, disable VIP Code input
+                    $form.prop("disabled", true);
+                    $btn.html('<i class="fa fa-sign-out" aria-hidden="true"></i>');
+                },
+                error: function () {
+                    // failure: show error message, reset inputs
+                    $form.prop("disabled", false);
+                    $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
+                }
+            });
             n();
-        })
+        });
     });
 
     // VIP CODE: listen for enter key press
-    $(".login-form").keypress(function(e) {
+    $(".login-form").keypress(function (e) {
         if (e.keyCode == 13)
             $('.btn-login').click();
     });
 
     // make request to shorten link on button click
-    $(".btn-shorten").click(function() {
+    $(".btn-shorten").click(function () {
         var url = $(".input-url").val();
         console.log(url);
         var json = {
@@ -39,7 +48,7 @@ $(document).ready(function() {
                 method: "POST",
                 data: json,
                 dataType: "json",
-                success: function(res, status) {
+                success: function (res, status) {
                     if (res !== null) {
                         $(".input-url").val(res.shortlink);
                         $(".input-url").select();
@@ -49,7 +58,7 @@ $(document).ready(function() {
                         $(".result").append("</div>");
                     }
                 },
-                error: function(obj, status, err) {
+                error: function (obj, status, err) {
                     if (err === "") {
                         err = "An error occured while processing your request.";
                     }
@@ -63,12 +72,12 @@ $(document).ready(function() {
     });
 
     // listen for enter keypress
-    $('.input-url').keypress(function(e) {
+    $('.input-url').keypress(function (e) {
         if (e.keyCode == 13)
             $('.btn-shorten').click();
     });
     var count = 36187;
-    setInterval(function() {
+    setInterval(function () {
         var rnd = Math.floor(Math.random() * 100);
         count += rnd;
         $(".count").html(count);
@@ -89,7 +98,7 @@ function isURL(str) {
 
 function copyToClipboard() {
     new Clipboard('.input-url', {
-        text: function(trigger) {
+        text: function (trigger) {
             console.log(trigger);
             return trigger.getAttribute('aria-label');
         }
