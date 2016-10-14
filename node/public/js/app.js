@@ -11,6 +11,7 @@ $(document).ready(function () {
             var code = $form.val();
             $.ajax({
                 url: "/login",
+                method: "POST",
                 data: code,
                 success: function () {
                     // success: log user in, disable VIP Code input
