@@ -5,7 +5,7 @@ $(document).ready(function () {
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
         // send login information to server and validate
-        
+
         // simulate login with a delay of 1sec
         $btn.delay(1000).queue(function (n) {
             var code = $form.val();
@@ -52,10 +52,13 @@ $(document).ready(function () {
                     if (res !== null) {
                         $(".input-url").val(res.shortlink);
                         $(".input-url").select();
-                        $(".result").append("<div class='row'>");
-                        $(".result").append(res.longlink + ": " + "<a href='" + res.shortlink + "'>" + res.shortlink + "</a>");
-                        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
-                        $(".result").append("</div>");
+
+                        // create well for first shortened link
+                        if(!$(".result").hasClass("well")) {
+                            $(".result").addClass("well");
+                        }
+                        displayShortenedLink(res.longlink, res.shortlink);
+                        
                     }
                 },
                 error: function (obj, status, err) {
@@ -96,12 +99,9 @@ function isURL(str) {
     return pattern.test(str);
 }
 
-function copyToClipboard() {
-    new Clipboard('.input-url', {
-        text: function (trigger) {
-            console.log(trigger);
-            return trigger.getAttribute('aria-label');
-        }
-    });
-
+function displayShortenedLink(long, short) {
+    $(".result").append("<div class='row'>");
+                        $(".result").append(long + ": " + "<a href='" + short + "'>" + short + "</a>");
+                        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
+                        $(".result").append("</div>");
 }
