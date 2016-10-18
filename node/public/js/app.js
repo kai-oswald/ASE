@@ -4,28 +4,33 @@ $(document).ready(function () {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
-        // send login information to server and validate
 
-        // simulate login with a delay of 1sec
-        $btn.delay(1000).queue(function (n) {
-            var code = $form.val();
-            $.ajax({
-                url: "/login",
-                method: "POST",
-                data: code,
-                success: function () {
-                    // success: log user in, disable VIP Code input
-                    $form.prop("disabled", true);
-                    $btn.html('<i class="fa fa-sign-out" aria-hidden="true"></i>');
-                },
-                error: function () {
-                    // failure: show error message, reset inputs
-                    $form.prop("disabled", false);
-                    $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
+        // send login information to server and validate
+        var code = {
+            "code": $form.val()
+        };
+        $.ajax({
+            url: "/login",
+            method: "POST",
+            data: code,
+            success: function (res) {                              
+                // success: log user in, disable VIP Code input
+                if (res.err) {
+                    notie.alert("error", res.err, 2);   
+                    $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');                 
+                } else {
+                    notie.alert("success", "You can now use Premium features", 2);
+                    // refresh page
+                    setTimeout(location.reload.bind(location), 1000);
                 }
-            });
-            n();
+            },
+            error: function (req, status, err) {
+                // unknown error: show error message, reset inputs
+                notie.alert("error", req.responseText, 2);
+                $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
+            }
         });
+
     });
 
     // VIP CODE: listen for enter key press
@@ -55,11 +60,11 @@ $(document).ready(function () {
                         $(".input-url").select();
 
                         // create well for first shortened link
-                        if(!$(".result").hasClass("well")) {
+                        if (!$(".result").hasClass("well")) {
                             $(".result").addClass("well");
                         }
                         displayShortenedLink(res.longlink, res.shortlink);
-                        
+
                     }
                 },
                 error: function (obj, status, err) {
@@ -102,7 +107,7 @@ function isURL(str) {
 
 function displayShortenedLink(long, short) {
     $(".result").append("<div class='row'>");
-                        $(".result").append(long + ": " + "<a href='" + short + "'>" + short + "</a>");
-                        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
-                        $(".result").append("</div>");
+    $(".result").append(long + ": " + "<a href='" + short + "'>" + short + "</a>");
+    $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
+    $(".result").append("</div>");
 }
