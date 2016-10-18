@@ -6,6 +6,6 @@ module.exports = function(app) {
 
     app.route('/detail/:slink').get(statistic.showDetail);
     
-    app.param('slink', statistic.linkByShort);
+    app.param('slink', statistic.getStatsByShort);
 
 };

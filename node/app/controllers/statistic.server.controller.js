@@ -1,4 +1,7 @@
 var linkstats = require('mongoose').model('LinkStatistic');
+var Linkmodell = require('mongoose').model('Link');
+var links = require('../../app/controllers/link.server.controller');
+
 
 exports.render = function(req, res) {
     res.render('main', {
@@ -46,6 +49,42 @@ exports.list = function(req, res, next) {
         }
     });
 };
+
+exports.showDetail= function(req, res){
+    console.log(req.stats.count);
+    //get Longlink...
+    console.log(req.stats.id);
+    Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
+            if (err) {
+                return next(err);
+            } else { 
+               res.render('stats', {
+                count: req.stats.count,
+                shortlink: req.stats.shortlink,
+                longlink: dbstats.longlink
+                });
+            }
+        });
+    
+    
+}
+
+exports.getStatsByShort = function(req, res, next, slink) {
+    linkstats.findOne({
+            shortlink: slink
+        },
+        function(err, stats) {
+            if (err) {
+                return next(err);
+            } else {
+                console.log("sucess"+stats);
+                req.stats = stats;
+                next();
+            }
+        }
+    );
+};
+
 
 function initStatistic(shortlink, qr){
     var linkstat = new linkstats();

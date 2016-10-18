@@ -80,6 +80,8 @@ exports.linkByShort = function(req, res, next, slink) {
     );
 };
 
+
+
 exports.update = function(req, res, next) {
     Link.findByIdAndUpdate(req.link.id, req.body, function(err, link) {
         if (err) {
