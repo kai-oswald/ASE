@@ -13,11 +13,11 @@ $(document).ready(function () {
             url: "/login",
             method: "POST",
             data: code,
-            success: function (res) {                              
+            success: function (res) {
                 // success: log user in, disable VIP Code input
                 if (res.err) {
-                    notie.alert("error", res.err, 2);   
-                    $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');                 
+                    notie.alert("error", res.err, 2);
+                    $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
                 } else {
                     notie.alert("success", "You can now use Premium features", 2);
                     // refresh page
@@ -91,16 +91,38 @@ $(document).ready(function () {
         count += rnd;
         $(".count").html(count);
     }, 1000);
-   
+
     // Admin functionality
-    $(".btn-generate").click(function() {
+    $(".btn-generate").click(function () {
         // generate random Premium Code
     });
 
-    $(".btn-code").click(function() {
+    $(".btn-code").click(function () {
         var code = $(".input-code").val();
-
         // send to server
+    });
+
+    $('#input-password').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-signin').click();
+    });
+    $(".btn-signin").click(function () {
+        var passwd = {
+            password: $("#input-password").val()
+        };
+        $.ajax({
+            url: "/admin",
+            data: passwd,
+            method: "POST",
+            success: function (data) {
+                if(!data.err) {
+                    location.reload();
+                }
+                else {
+                    notie.alert("error", data.err, 2)
+                }
+            }
+        });
     });
 });
 
