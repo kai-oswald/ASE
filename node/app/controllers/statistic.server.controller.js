@@ -1,0 +1,64 @@
+var linkstats = require('mongoose').model('LinkStatistic');
+
+exports.render = function(req, res) {
+    res.render('main', {
+        title: 'Willkommen'
+    })
+};
+
+exports.initStatistics = function(shortlink){
+    console.log("test");
+    initStatistic(shortlink,false);
+}
+
+exports.initQRStatistics = function(req,res,shortlink){
+    initStatistic(shortlink,true);   
+}
+
+exports.updateStatistic = function(shortlink) {
+    linkstats.findOne({
+            shortlink: shortlink
+        },
+        function(err, stats) {
+            if (err) {
+                return next(err);
+            } else {
+                if(stats==null){
+                    initStatistic(shortlink,false);
+                }else{
+                    var tmpcount = stats.count + 1;
+                    linkstats.findByIdAndUpdate(stats.id,{$set: {count:tmpcount}}, function (err, stats) {
+                        if (err){ 
+                            console.log("error while updating");
+                        }else{
+                        }
+                    });
+                }
+            }});     
+        };
+
+exports.list = function(req, res, next) {
+    linkstats.find({}, function(err, stats) {
+        if (err) {
+            return next(err);
+        } else {//
+            res.json(stats);
+        }
+    });
+};
+
+function initStatistic(shortlink, qr){
+    var linkstat = new linkstats();
+    console.log("test"+shortlink);
+    linkstat.shortlink=shortlink;
+    linkstat.count=0;
+    linkstat.qrcode=qr;
+    linkstat.save(function(err) {
+    if (err) {
+        return next(err);
+            } else { 
+                console.log("sucess");
+                            }
+    });    
+}
+
