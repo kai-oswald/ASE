@@ -1,13 +1,28 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="input-group">
-                <span class="input-group-btn">  
-            <button class="btn btn-default" title="generate random" type="button"><i class="glyphicon glyphicon-random"></i></button>
+<% if(isAdmin) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-btn">  
+            <button class="btn btn-default btn-generate" title="generate random" type="button"><i class="glyphicon glyphicon-random"></i></button>
              </span>
-                <input type="text" class="form-control input-url" placeholder="Create Premium Code">
+                    <input type="text" class="form-control input-code" placeholder="Create Premium Code">
+                </div>
             </div>
+            <div class="btn btn-primary btn-code">submit</div>
         </div>
-        <div class="btn btn-primary">submit</div>
     </div>
-</div>
+    <% } else { %>
+        <div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="input-username" class="sr-only">Username</label>
+        <input type="text" id="input-username" class="form-control" placeholder="Username" required="" autofocus="">
+        <label for="input-password" class="sr-only">Password</label>
+        <input type="password" id="input-password" class="form-control" placeholder="Password" required="">        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div>
+        <% } %>

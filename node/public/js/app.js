@@ -91,6 +91,17 @@ $(document).ready(function () {
         count += rnd;
         $(".count").html(count);
     }, 1000);
+   
+    // Admin functionality
+    $(".btn-generate").click(function() {
+        // generate random Premium Code
+    });
+
+    $(".btn-code").click(function() {
+        var code = $(".input-code").val();
+
+        // send to server
+    });
 });
 
 

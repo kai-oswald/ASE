@@ -7,8 +7,7 @@ exports.validate = function (req, res, next) {
         result = {
             "status": "success"
         }
-
-        // TODO: Cookie setzen
+    res.cookie('premium', 'true', { maxAge: 900000, httpOnly: true });              
     } else {
         // errorhandling
         result = {
@@ -16,7 +15,6 @@ exports.validate = function (req, res, next) {
             "err": "Invalid VIP Code"
         }
     }
-    res.cookie('premium', 'true', { maxAge: 900000, httpOnly: true });
     res.json(result);   
     
     
