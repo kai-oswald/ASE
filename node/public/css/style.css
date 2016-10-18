@@ -26,3 +26,7 @@ body {
 .btn-shorten {
   text-transform: capitalize;;
 }
+
+.input-custom-link {
+  margin-top: 5px;
+}

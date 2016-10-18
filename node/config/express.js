@@ -1,9 +1,17 @@
 var config = require('./config'),
     express = require('express'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser');
 
-module.exports = function() {
+module.exports = function () {
     var app = express();
+
+    app.use(cookieParser());
+
+    app.use(function (req) {
+        GLOBAL_PREMIUM = req.cookies.premium;
+        console.log(GLOBAL_PREMIUM);
+    });
 
     app.use(bodyParser.urlencoded({
         extended: true

@@ -37,9 +37,11 @@ $(document).ready(function () {
     // make request to shorten link on button click
     $(".btn-shorten").click(function () {
         var url = $(".input-url").val();
+        var customLink = $(".input-custom-link").val();
         console.log(url);
+        console.log(customLink);
         var json = {
-                "shortlink": "",
+                "shortlink": customLink,
                 "longlink": url
             }
             // validate url
