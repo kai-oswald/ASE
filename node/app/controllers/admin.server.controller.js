@@ -1,6 +1,6 @@
 exports.render = function(req, res) {
-    res.render('index', {
-        title: 'Home',
+    res.render('admin', {
+        title: 'Admin',
         layout: 'layout'
     })
 };
