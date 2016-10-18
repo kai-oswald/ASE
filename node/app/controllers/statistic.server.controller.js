@@ -71,8 +71,58 @@ exports.showDetail= function(req, res){
     
 }
 
-exports.returnStats = function(req, res, slink) {
+exports.returnWithQR = function(req, res, slink) {
+   return res.json(req.stats);
+}
+
+exports.returnWithNoQR = function(req, res, slink) {
     return res.json(req.stats);
+}
+
+exports.getWithQRStatsByShort = function(req, res, next, slink) {
+    linkstats.findOne({
+            shortlink: slink,
+            qrcode: true
+        },
+        function(err, stats) {
+            if (err) {
+                return next(err);
+            } else {
+                req.stats = stats;
+                next();
+
+            }
+        }
+    );
+    
+    
+};
+
+exports.getNoQRStatsByShort = function(req, res, next, slink) {
+    linkstats.findOne({
+            shortlink: slink,
+            qrcode: false
+        },
+        function(err, stats) {
+            if (err) {
+                return next(err);
+            } else {
+                req.stats = stats;
+                next();
+
+            }
+        }
+    );
+    
+    
+};
+
+
+exports.returnStats = function(req, res, slink) {
+    res.render('stats', {
+                count: req.stats.count,
+                shortlink: req.stats.shortlink
+                });
 }
 
 exports.getStatsByShort = function(req, res, next, slink) {

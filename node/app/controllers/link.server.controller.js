@@ -60,7 +60,7 @@ exports.text = function(req, res) {
 
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
-    statistic.updateStatistic(req.link.shortlink);
+    statistic.updateStatistic(req.link.shortlink,false);
     res.redirect("http://" + req.link.longlink);
 
     //console.log("test");

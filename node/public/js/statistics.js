@@ -1,23 +1,14 @@
 $(document).ready(function () {
-    $http({
-      method: 'POST',
-      url: '/detail/'+$('#shortlink').val()
-    }).then(function successCallback(response) {
-        console.log("test");
-      }, function errorCallback(response) {
-        console.log("error");
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-      });
-
+    var withqr=0;
+    var withoutqr=0;
+    console.log($('#shortlink').val());
     
-    
-    
-    
-    
-    
-$(function () {
-    $('#container').highcharts({
+    $.get( '/stats/withqr/'+$('#shortlink').val(), function( data ) {
+        withqr= data.count;
+        $.get( '/stats/noqr/'+$('#shortlink').val(), function( data2 ) {
+            withoutqr= data2.count;
+            console.log(withqr+" "+withoutqr);
+            $('#container').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -25,7 +16,7 @@ $(function () {
             type: 'pie'
         },
         title: {
-            text: 'Browser market shares January, 2015 to May, 2015'
+            text: 'Klicks'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -48,15 +39,23 @@ $(function () {
             colorByPoint: true,
             data: [{
                 name: 'Ohne QR Code',
-                y: 56.33
+                y: withoutqr
             }, {
                 name: 'Mit QR Code',
-                y: 24.03,
-                sliced: true,
-                selected: true
+                y: withqr
             }]
         }]
     });
-});
+
+        });
+    });
+   
+       //$http.get('/stats/withqr/'+$('#shortlink').val()).then(function(data){console.log(data);}, errorCallback);
+       // $http.get('/stats/noqr/'+$('#shortlink').val()).then(function(data){console.log(data);}, errorCallback);
+       
+
+
+    
         
 });
+
