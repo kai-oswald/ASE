@@ -19,8 +19,6 @@ exports.initQRStatistics = function(shortlink){
     initStatistic(shortlink,true);   
 }
 
-
-//QR!!!
 exports.updateStatistic = function(shortlink, qr) {
     linkstats.findOne({
             shortlink: shortlink,
@@ -72,7 +70,7 @@ exports.showDetail= function(req, res){
 }
 
 exports.returnWithQR = function(req, res, slink) {
-   return res.json(req.stats);
+    return res.json(req.stats);
 }
 
 exports.returnWithNoQR = function(req, res, slink) {
@@ -119,10 +117,21 @@ exports.getNoQRStatsByShort = function(req, res, next, slink) {
 
 
 exports.returnStats = function(req, res, slink) {
-    res.render('stats', {
+     Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
+            if (err) {
+                return next(err);
+            } else { 
+               res.render('stats', {
+                count: req.stats.count,
+                shortlink: req.stats.shortlink,
+                longlink: dbstats.longlink
+                });
+            }
+        });
+   /* res.render('stats', {
                 count: req.stats.count,
                 shortlink: req.stats.shortlink
-                });
+                });*/
 }
 
 exports.getStatsByShort = function(req, res, next, slink) {
