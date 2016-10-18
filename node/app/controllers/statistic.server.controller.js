@@ -10,17 +10,21 @@ exports.render = function(req, res) {
 };
 
 exports.initStatistics = function(shortlink){
-    console.log("test");
+    console.log("initnormal");
     initStatistic(shortlink,false);
 }
 
-exports.initQRStatistics = function(req,res,shortlink){
+exports.initQRStatistics = function(shortlink){
+    console.log("initqr");
     initStatistic(shortlink,true);   
 }
 
-exports.updateStatistic = function(shortlink) {
+
+//QR!!!
+exports.updateStatistic = function(shortlink, qr) {
     linkstats.findOne({
-            shortlink: shortlink
+            shortlink: shortlink,
+            qrcode: qr
         },
         function(err, stats) {
             if (err) {
@@ -51,9 +55,7 @@ exports.list = function(req, res, next) {
 };
 
 exports.showDetail= function(req, res){
-    console.log(req.stats.count);
     //get Longlink...
-    console.log(req.stats.id);
     Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
             if (err) {
                 return next(err);
@@ -69,21 +71,29 @@ exports.showDetail= function(req, res){
     
 }
 
+exports.returnStats = function(req, res, slink) {
+    return res.json(req.stats);
+}
+
 exports.getStatsByShort = function(req, res, next, slink) {
     linkstats.findOne({
-            shortlink: slink
+            shortlink: slink,
+            qrcode: false
         },
         function(err, stats) {
             if (err) {
                 return next(err);
             } else {
-                console.log("sucess"+stats);
                 req.stats = stats;
                 next();
+
             }
         }
     );
+    
+    
 };
+
 
 
 function initStatistic(shortlink, qr){

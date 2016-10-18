@@ -33,6 +33,7 @@ exports.create = function(req, res, next) {
                     } else {
                         //init statistic
                         statistic.initStatistics(link.shortlink);
+                        statistic.initQRStatistics(link.shortlink);
                         // TODO: temp fix
                         link.shortlink = "/l/" + link.shortlink;
                         res.json(link);
