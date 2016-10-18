@@ -1,4 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+GLOBAL_SERVER = 'http://localhost:8001';
 
 var config = require('./config/config'),
     mongoose = require('./config/mongoose'),

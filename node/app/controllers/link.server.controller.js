@@ -36,15 +36,14 @@ exports.create = function(req, res, next) {
         } else {
             console.log(docs);
             if (docs.length != 0) {
-                link.shortlink = "/" +docs[0].shortlink;
+                link.shortlink = GLOBAL_SERVER+ "/" +docs[0].shortlink;
                 res.json(link);
             } else {
                 link.save(function(err) {
                     if (err) {
                         return next(err);
                     } else {
-                        // TODO: temp fix
-                        link.shortlink = "/" + link.shortlink;
+                        link.shortlink = GLOBAL_SERVER+ "/" + link.shortlink;
                         res.json(link);
                     }
                 });
