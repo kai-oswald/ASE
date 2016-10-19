@@ -94,18 +94,20 @@ $(document).ready(function () {
 
     // Admin functionality
     $(".btn-generate").click(function () {
-        // generate random Premium Code
-    });
-
-    $(".btn-code").click(function () {
-        var code = $(".input-code").val();
-        // send to server
-    });
+        // TODO: generate random Premium Code
+    });    
 
     $('#input-password').keypress(function (e) {
         if (e.keyCode == 13)
             $('.btn-signin').click();
     });
+
+    $('.input-code').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-code').click();
+    });
+
+    // Admin Page SignIn
     $(".btn-signin").click(function () {
         var passwd = {
             password: $("#input-password").val()
@@ -115,15 +117,33 @@ $(document).ready(function () {
             data: passwd,
             method: "POST",
             success: function (data) {
-                if(!data.err) {
+                if (!data.err) {
                     location.reload();
-                }
-                else {
+                } else {
                     notie.alert("error", data.err, 2)
                 }
             }
         });
-    });
+    });  
+
+    // Submit new Premium Code
+    $(".btn-code").click(function () {
+        var code = {
+            "code": $(".input-code").val()
+        };
+        $.ajax({
+            url: "/code",
+            data: code,
+            method: "POST",
+            success: function (data) {
+                if (!data.err) {
+                    notie.alert("success", "Succesfully created Premium Code '" + data.code + "'", 2);
+                } else {
+                    notie.alert("error", data.err, 2)
+                }
+            }
+        });
+    });    
 });
 
 
