@@ -1,4 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+GLOBAL_PREMIUM = 'false';
 
 var config = require('./config/config'),
     mongoose = require('./config/mongoose'),

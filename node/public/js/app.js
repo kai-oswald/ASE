@@ -42,9 +42,13 @@ $(document).ready(function () {
     // make request to shorten link on button click
     $(".btn-shorten").click(function () {
         var url = $(".input-url").val();
+        var customLink = $(".input-custom-link").val();
+        if(customLink == undefined)
+            customLink = "";
         console.log(url);
+        console.log(customLink);
         var json = {
-                "shortlink": "",
+                "shortlink": customLink,
                 "longlink": url
             }
             // validate url
@@ -64,8 +68,6 @@ $(document).ready(function () {
                             $(".result").addClass("well");
                         }
                         displayShortenedLink(res.longlink, res.shortlink);
-                        console.log('hello');
-
                     }
                 },
                 error: function (obj, status, err) {
