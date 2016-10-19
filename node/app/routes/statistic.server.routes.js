@@ -4,6 +4,10 @@ var bodyParser = require('body-parser');
 module.exports = function(app) {    
     app.route('/stat').get(statistic.list);
 
+    app.route('/details').get(statistic.allStatistic);
+    
+    app.route('/detail').get(statistic.renderallstatistic);
+    
     app.route('/detail/:slink').get(statistic.returnStats);//.post(statistic.returnStats);
     
     app.param('slink', statistic.getStatsByShort);

@@ -59,7 +59,7 @@ exports.redirect = function(req, res) {
 exports.redirectQR = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
     statistic.updateStatistic(req.link.shortlink, true);
-    res.redirect("http://" + req.link.longlink);
+    res.redirect(req.link.longlink);
     //console.log("test");
 };
 

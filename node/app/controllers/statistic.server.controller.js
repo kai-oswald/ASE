@@ -2,11 +2,27 @@ var linkstats = require('mongoose').model('LinkStatistic');
 var Linkmodell = require('mongoose').model('Link');
 var links = require('../../app/controllers/link.server.controller');
 
-
-exports.render = function(req, res) {
-    res.render('main', {
-        title: 'Willkommen'
+exports.renderallstatistic = function(req, res) {
+    res.render('allstatistic', {
+       layout:"layout",
+        title:"Statistiküberblick"
     })
+};
+
+exports.allStatistic= function(req, res, next) {
+    linkstats.find(
+        function(err, stats) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.json(stats);
+                next();
+
+            }
+        }
+    );
+    
+    
 };
 
 exports.initStatistics = function(shortlink){
@@ -65,8 +81,22 @@ exports.showDetail= function(req, res){
                 });
             }
         });
-    
-    
+}
+
+exports.getLongLink = function(req,res,slink) {
+     return res.json(req.stats);
+}
+
+exports.getLongLinkP = function(req,res,next,slink) {
+     Linkmodell.findOne({shortlink : slink},
+            function(err, dbstats) {
+            if (err) {
+                return next(err);
+            } else { 
+               req.stats = dbstats;
+                next();
+            }
+        });
 }
 
 exports.returnWithQR = function(req, res, slink) {

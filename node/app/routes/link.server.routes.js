@@ -6,9 +6,6 @@ module.exports = function(app) {
 
     app.route('/link').post(links.validateURL, links.checkShortLink, links.create);
 
-    //redirect
-    app.route('/:slink').get(links.redirect);
-
     app.route('/qr/:slink').get(links.redirectQR);
 
     app.route('/all').get(links.list);
@@ -16,5 +13,8 @@ module.exports = function(app) {
     app.param('slink', links.linkByShort);
 
     app.route('/linktext').get(links.text).post(links.text);
+    
+    //redirect
+    app.route('/:slink').get(links.redirect);
 
 };
