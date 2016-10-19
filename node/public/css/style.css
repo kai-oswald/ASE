@@ -1,28 +1,68 @@
 html {
-  height: 100%;
+    height: 100%;
 }
+
 body {
-  padding-top: 70px;
-  height: 100%;
+    padding-top: 70px;
+    height: 100%;
 }
+
 .main {
     padding: 5%;
 }
+
 .result {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .stats {
-  background: yellow;
-  height: 100px;
-  padding-top: 40px;
-  text-align: center;
+    height: 100px;
+    padding-top: 40px;
+    text-align: center;
+    margin-top: 200px;
 }
 
 .centered {
-  text-align: center;
+    text-align: center;
 }
 
 .btn-shorten {
-  text-transform: capitalize;;
+    text-transform: capitalize;;
+}
+
+.input-custom-link {
+    margin-top: 5px;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
 }

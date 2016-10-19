@@ -1,11 +1,7 @@
 var Link = require('mongoose').model('Link');
 var url = require('url');
-var LinkError = {
-    shortlink: String,
-    longlink: String,
-    error: String
-};
-var GLOBAL_PREMIUM = true;
+var Linkstats = require('mongoose').model('LinkStatistic');
+var statistic = require('../../app/controllers/statistic.server.controller');
 
 exports.create = function(req, res, next) {
     var link = new Link(req.body);
@@ -32,6 +28,10 @@ exports.create = function(req, res, next) {
         } else {
             res.json(LinkSuccess);
             res.end();
+            //init statistic
+            statistic.initStatistics(link.shortlink);
+            statistic.initQRStatistics(link.shortlink);
+
         }
     });
 };
@@ -52,7 +52,14 @@ exports.text = function(req, res) {
 
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
-    res.redirect(req.link.longlink);
+    statistic.updateStatistic(req.link.shortlink, false);
+    res.redirect(req.link.longlink)
+};
+
+exports.redirectQR = function(req, res) {
+    //Longlink has to save in standardformat to make this redirect correct
+    statistic.updateStatistic(req.link.shortlink, true);
+    res.redirect("http://" + req.link.longlink);
     //console.log("test");
 };
 
@@ -70,6 +77,8 @@ exports.linkByShort = function(req, res, next, slink) {
         }
     );
 };
+
+
 
 exports.update = function(req, res, next) {
     Link.findByIdAndUpdate(req.link.id, req.body, function(err, link) {
