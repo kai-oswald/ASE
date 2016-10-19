@@ -9,6 +9,7 @@ module.exports = function () {
     app.use(cookieParser());
 
     app.use(function (req,res,next) {
+        // res.cookie('premium',false);
         GLOBAL_PREMIUM = req.cookies.premium;
         console.log(GLOBAL_PREMIUM);
         next();
