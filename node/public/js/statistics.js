@@ -8,7 +8,9 @@ $(document).ready(function () {
             withqr= data.count;
         }
         $.get( '/stats/noqr/'+$('#shortlink').val(), function( data2 ) {
-            withoutqr= data2.count;
+            if(data2!=null) {
+                withoutqr = data2.count;
+            }
             console.log(withqr+" "+withoutqr);
             var total= withoutqr+withqr;
             $('#total').html("Gesamt: " + total);
