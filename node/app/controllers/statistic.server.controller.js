@@ -124,7 +124,9 @@ exports.returnStats = function(req, res, slink) {
                res.render('stats', {
                 count: req.stats.count,
                 shortlink: req.stats.shortlink,
-                longlink: dbstats.longlink
+                longlink: dbstats.longlink,
+                title: 'Statistiken',
+                layout: 'layout'
                 });
             }
         });
