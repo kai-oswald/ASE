@@ -8,11 +8,13 @@ module.exports = function(app) {
     
     //redirect
     app.route('/l/:slink').get(links.redirect);
-    
+
+    app.route('/qr/:slink').get(links.redirectQR);
+
     app.route('/all').get(links.list);
     
     app.param('slink', links.linkByShort);
-    
+
     app.route('/linktext').get(links.text).post(links.text);
 
 };
