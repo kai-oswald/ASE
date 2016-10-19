@@ -98,6 +98,7 @@ $(document).ready(function () {
     // Admin functionality
     $(".btn-generate").click(function () {
         // TODO: generate random Premium Code
+        $(".input-code").val(token());
     });
 
     $('#input-password').keypress(function (e) {
@@ -169,3 +170,11 @@ function displayShortenedLink(long, short) {
         $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
     $(".result").append("</div>");
 }
+
+var rand = function() {
+    return Math.random().toString(36).substr(20); // remove `0.`
+};
+
+var token = function() {
+    return rand() + rand(); // to make it longer
+};
