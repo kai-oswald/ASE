@@ -63,7 +63,7 @@ $(document).ready(function () {
                             $(".result").addClass("well");
                         }
                         displayShortenedLink(res.longlink, res.shortlink);
-                        
+
                     }
                 },
                 error: function (obj, status, err) {
