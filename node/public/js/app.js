@@ -60,14 +60,14 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res, status) {
                     if (res !== null) {
-                        $(".input-url").val(res.shortlink);
+                        $(".input-url").val(res.shortLink);
                         $(".input-url").select();
 
                         // create well for first shortened link
                         if (!$(".result").hasClass("well")) {
                             $(".result").addClass("well");
                         }
-                        displayShortenedLink(res.longlink, res.shortlink);
+                        displayShortenedLink(res.longLink, res.shortLink);
                     }
                 },
                 error: function (obj, status, err) {
@@ -98,7 +98,7 @@ $(document).ready(function () {
     // Admin functionality
     $(".btn-generate").click(function () {
         // TODO: generate random Premium Code
-    });    
+    });
 
     $('#input-password').keypress(function (e) {
         if (e.keyCode == 13)
@@ -127,7 +127,7 @@ $(document).ready(function () {
                 }
             }
         });
-    });  
+    });
 
     // Submit new Premium Code
     $(".btn-code").click(function () {
@@ -146,7 +146,7 @@ $(document).ready(function () {
                 }
             }
         });
-    });    
+    });
 });
 
 

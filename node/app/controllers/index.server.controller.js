@@ -7,7 +7,7 @@ exports.render = function (req, res) {
     } else {
         res.render('premium', {
             title: 'url shortener',
-            layout: 'layout'
+            layout: false
         })
     }
 };
