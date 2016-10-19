@@ -4,28 +4,33 @@ $(document).ready(function () {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
-        // send login information to server and validate
 
-        // simulate login with a delay of 1sec
-        $btn.delay(1000).queue(function (n) {
-            var code = $form.val();
-            $.ajax({
-                url: "/login",
-                method: "POST",
-                data: code,
-                success: function () {
-                    // success: log user in, disable VIP Code input
-                    $form.prop("disabled", true);
-                    $btn.html('<i class="fa fa-sign-out" aria-hidden="true"></i>');
-                },
-                error: function () {
-                    // failure: show error message, reset inputs
-                    $form.prop("disabled", false);
+        // send login information to server and validate
+        var code = {
+            "code": $form.val()
+        };
+        $.ajax({
+            url: "/login",
+            method: "POST",
+            data: code,
+            success: function (res) {
+                // success: log user in, disable VIP Code input
+                if (res.err) {
+                    notie.alert("error", res.err, 2);
                     $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
+                } else {
+                    notie.alert("success", "You can now use Premium features", 2);
+                    // refresh page
+                    setTimeout(location.reload.bind(location), 1000);
                 }
-            });
-            n();
+            },
+            error: function (req, status, err) {
+                // unknown error: show error message, reset inputs
+                notie.alert("error", req.responseText, 2);
+                $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
+            }
         });
+
     });
 
     // VIP CODE: listen for enter key press
@@ -55,11 +60,12 @@ $(document).ready(function () {
                         $(".input-url").select();
 
                         // create well for first shortened link
-                        if(!$(".result").hasClass("well")) {
+                        if (!$(".result").hasClass("well")) {
                             $(".result").addClass("well");
                         }
                         displayShortenedLink(res.longlink, res.shortlink);
-                        
+                        console.log('hello');
+
                     }
                 },
                 error: function (obj, status, err) {
@@ -86,6 +92,59 @@ $(document).ready(function () {
         count += rnd;
         $(".count").html(count);
     }, 1000);
+
+    // Admin functionality
+    $(".btn-generate").click(function () {
+        // TODO: generate random Premium Code
+    });    
+
+    $('#input-password').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-signin').click();
+    });
+
+    $('.input-code').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-code').click();
+    });
+
+    // Admin Page SignIn
+    $(".btn-signin").click(function () {
+        var passwd = {
+            password: $("#input-password").val()
+        };
+        $.ajax({
+            url: "/admin",
+            data: passwd,
+            method: "POST",
+            success: function (data) {
+                if (!data.err) {
+                    location.reload();
+                } else {
+                    notie.alert("error", data.err, 2)
+                }
+            }
+        });
+    });  
+
+    // Submit new Premium Code
+    $(".btn-code").click(function () {
+        var code = {
+            "code": $(".input-code").val()
+        };
+        $.ajax({
+            url: "/code",
+            data: code,
+            method: "POST",
+            success: function (data) {
+                if (!data.err) {
+                    notie.alert("success", "Succesfully created Premium Code '" + data.code + "'", 2);
+                } else {
+                    notie.alert("error", data.err, 2)
+                }
+            }
+        });
+    });    
 });
 
 
