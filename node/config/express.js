@@ -8,9 +8,10 @@ module.exports = function () {
 
     app.use(cookieParser());
 
-    app.use(function (req) {
+    app.use(function (req,res,next) {
         GLOBAL_PREMIUM = req.cookies.premium;
         console.log(GLOBAL_PREMIUM);
+        next();
     });
 
     app.use(bodyParser.urlencoded({
