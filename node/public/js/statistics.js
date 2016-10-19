@@ -4,7 +4,9 @@ $(document).ready(function () {
     console.log($('#shortlink').val());
     
     $.get( '/stats/withqr/'+$('#shortlink').val(), function( data ) {
-        withqr= data.count;
+        if(data!=null){
+            withqr= data.count;
+        }
         $.get( '/stats/noqr/'+$('#shortlink').val(), function( data2 ) {
             withoutqr= data2.count;
             console.log(withqr+" "+withoutqr);
