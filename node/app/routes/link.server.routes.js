@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 module.exports = function(app) {
     app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-    app.route('/link').post(links.create);
+    app.route('/link').post(links.validateURL,links.checkShortLink,links.create);
 
     //redirect
     app.route('/:slink').get(links.redirect);
