@@ -52,12 +52,15 @@ exports.text = function (req, res) {
 
 exports.redirect = function (req, res) {
     //Longlink has to save in standardformat to make this redirect correct
-    var link = new Link(req.body);
+    console.log("redi");
 
+    var link = new Link(req.body);
+    console.log(link.shortlink);
     if (link != undefined) {
         statistic.updateStatistic(link.shortlink, false);
         res.redirect(link.longlink)
     }
+
 };
 
 exports.redirectQR = function (req, res) {
@@ -66,7 +69,6 @@ exports.redirectQR = function (req, res) {
 
     statistic.updateStatistic(link.shortlink, true);
     res.redirect(link.longlink);
-    //console.log("test");
 };
 
 exports.linkByShort = function (req, res, next, slink) {
@@ -78,8 +80,13 @@ exports.linkByShort = function (req, res, next, slink) {
                 console.log(err);
                 return next(err);
             } else {
-                req.body = link;
-                next();
+                if (link == null) {
+                    res.status(404);
+                    res.end();
+                } else {
+                    req.body = link;
+                    next();
+                }
             }
         }
     );
@@ -96,7 +103,6 @@ exports.update = function (req, res, next) {
 };
 
 exports.validateURL = function (req, res, next) {
-    console.log("validateurl");
     var link = new Link(req.body);
     var LinkError = {
         shortlink: String,
@@ -125,7 +131,6 @@ exports.validateURL = function (req, res, next) {
 exports.findLongLink = function (req, res, next) {
     //Check if longlink (e.g. google.de) already exists in Database
     //When found, the shortlink of the database gets returned, otherwise the shortlink stays the same
-    console.log("findlonglink");
     var link = new Link(req.body);
     var LinkError = {
         shortlink: String,
@@ -156,7 +161,6 @@ exports.findLongLink = function (req, res, next) {
 exports.checkLongLink = function (req, res, next) {
     //Check if longlink (e.g. google.de) already exists in Database
     //When found, the shortlink of the database gets returned, otherwise the shortlink stays the same
-    console.log("checklonglink");
     var routes = ['link', 'admin', 'stats', 'all', 'qr', 'linktext', 'login', 'code', 'stat', 'detail'];
     var link = new Link(req.body);
     var LinkError = {
@@ -169,7 +173,7 @@ exports.checkLongLink = function (req, res, next) {
     if (routes.indexOf(link.shortlink) > -1) {
         found = 'true';
     }
-    
+
     if (GLOBAL_PREMIUM == 'true') {
         if (found == 'true') {
             LinkError.shortlink = link.shortlink;
@@ -191,7 +195,6 @@ exports.checkLongLink = function (req, res, next) {
 exports.checkShortLink = function (req, res, next) {
     //Check if shortlink (e.g. ErzTS) already exists in Database
     //When found, the shortlink of the database gets returned, otherwise the shortlink stays the same
-    console.log("checkshortlink");
     var link = new Link(req.body);
     var LinkError = {
         shortlink: String,
