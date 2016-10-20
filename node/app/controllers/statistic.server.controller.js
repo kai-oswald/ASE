@@ -145,7 +145,8 @@ exports.getNoQRStatsByShort = function(req, res, next, slink) {
 
 
 exports.returnStats = function(req, res, slink) {
-     Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
+    if(req.stats!=null){
+        Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
             if (err) {
                 return next(err);
             } else { 
@@ -158,6 +159,13 @@ exports.returnStats = function(req, res, slink) {
                 });
             }
         });
+    }else{
+        //error
+        res.render('errorshorturl', {
+            title: 'Fehler!',
+            layout: 'layout'
+        });
+    }
 }
 
 exports.getStatsByShort = function(req, res, next, slink) {

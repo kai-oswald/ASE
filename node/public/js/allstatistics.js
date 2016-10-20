@@ -33,7 +33,7 @@ $(document).ready(function () {
                         }       
                     }
                 });
-                categoriesarray.push(data0[i].longlink);
+                categoriesarray.push(data0[i].longlink + " über /"+data0[i].shortlink);
                 if(i==data0.length && b2==true && b1==true){
                     createTable();
                 }
