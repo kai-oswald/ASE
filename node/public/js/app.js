@@ -68,7 +68,7 @@ $(document).ready(function () {
                         if (!$(".result").hasClass("well")) {
                             $(".result").addClass("well");
                         }
-                        displayShortenedLink(res.longLink, res.shortLink);
+                        displayShortenedLink(res.longLink, res.shortLink, res.shortURL);
                     } else {
                         notie.alert("error", res.error, 2);
                     }
@@ -170,12 +170,12 @@ function isURL(str) {
     return pattern.test(str);
 }
 
-function displayShortenedLink(long, short) {
+function displayShortenedLink(long, short, shortUrl) {   
     $(".result").append("<div class='row'>");
         $(".result").append("<div>" + long + ": " + "<a href='" + short + "'>" + short + "</a></div>");
         $(".result").append('<div> QR Code: <img src=' +
             '"https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=f5f5f5&data=' + short +'"></div>');
-        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
+        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-text="' + shortUrl + '">Copy</div>');
         $(".result").append('<a class="btn btn-default" href="/detail'+short+'" role="button">Statistiken zum Link</a>');
     $(".result").append("</div>");
 }
