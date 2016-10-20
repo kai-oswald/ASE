@@ -4,16 +4,19 @@ var config = require('./config'),
     cookieParser = require('cookie-parser'),
     partials = require('express-partials');
 
-module.exports = function () {
+module.exports = function() {
     var app = express();
 
     app.use(cookieParser());
 
-    app.use(function (req,res,next) {
+    app.use(function(req, res, next) {
         GLOBAL_PREMIUM = req.cookies.premium;        
         GLOBAL_ADMIN = req.cookies.admin;
         if(GLOBAL_ADMIN == undefined) {
             GLOBAL_ADMIN = false;
+        }
+        if (GLOBAL_PREMIUM == undefined) {
+            GLOBAL_PREMIUM = false;
         }
         next();
     });
