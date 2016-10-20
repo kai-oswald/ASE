@@ -107,7 +107,7 @@ exports.validateURL = function(req, res, next) {
             //Throw Error
             LinkError.shortlink = link.shortlink;
             LinkError.longlink = link.longlink;
-            LinkError.error = 'URL malformatted';
+            LinkError.error = 'Unable to shorten that link. It is not a valid url.';
 
             res.json(LinkError);
             res.end();
