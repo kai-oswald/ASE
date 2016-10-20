@@ -4,7 +4,6 @@ $(document).ready(function () {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
-
         // send login information to server and validate
         var code = {
             "code": $form.val()
@@ -45,8 +44,6 @@ $(document).ready(function () {
         var customLink = $(".input-custom-link").val();
         if(customLink == undefined)
             customLink = "";
-        console.log(url);
-        console.log(customLink);
         var json = {
                 "shortlink": customLink,
                 "longlink": url
@@ -59,7 +56,8 @@ $(document).ready(function () {
                 data: json,
                 dataType: "json",
                 success: function (res, status) {
-                    if (res !== null) {
+                    console.log(res);
+                    if (!res.error) {
                         $(".input-url").val(res.shortLink);
                         $(".input-url").select();
 
@@ -67,7 +65,9 @@ $(document).ready(function () {
                         if (!$(".result").hasClass("well")) {
                             $(".result").addClass("well");
                         }
-                        displayShortenedLink(res.longLink, res.shortLink);
+                        displayShortenedLink(res.longLink, res.shortLink, res.shortURL);
+                    } else {
+                        notie.alert("error", res.error, 2);
                     }
                 },
                 error: function (obj, status, err) {
@@ -88,6 +88,11 @@ $(document).ready(function () {
         if (e.keyCode == 13)
             $('.btn-shorten').click();
     });
+
+    $('.input-custom-link').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-shorten').click();
+    });
     var count = 36187;
     setInterval(function () {
         var rnd = Math.floor(Math.random() * 100);
@@ -98,6 +103,7 @@ $(document).ready(function () {
     // Admin functionality
     $(".btn-generate").click(function () {
         // TODO: generate random Premium Code
+        $(".input-code").val(token());
     });
 
     $('#input-password').keypress(function (e) {
@@ -108,7 +114,7 @@ $(document).ready(function () {
     $('.input-code').keypress(function (e) {
         if (e.keyCode == 13)
             $('.btn-code').click();
-    });
+    });    
 
     // Admin Page SignIn
     $(".btn-signin").click(function () {
@@ -133,7 +139,7 @@ $(document).ready(function () {
     $(".btn-code").click(function () {
         var code = {
             "code": $(".input-code").val()
-        };
+        };        
         $.ajax({
             url: "/code",
             data: code,
@@ -161,11 +167,20 @@ function isURL(str) {
     return pattern.test(str);
 }
 
-function displayShortenedLink(long, short) {
+function displayShortenedLink(long, short, shortUrl) {   
     $(".result").append("<div class='row'>");
         $(".result").append("<div>" + long + ": " + "<a href='" + short + "'>" + short + "</a></div>");
         $(".result").append('<div> QR Code: <img src=' +
             '"https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=f5f5f5&data=' + short +'"></div>');
-        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
+        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-text="' + shortUrl + '">Copy</div>');
+        $(".result").append('<a class="btn btn-default" href="/detail'+short+'" role="button">Statistiken zum Link</a>');
     $(".result").append("</div>");
 }
+
+var rand = function() {
+    return Math.random().toString(36).substr(20); // remove `0.`
+};
+
+var token = function() {
+    return rand() + rand(); // to make it longer
+};

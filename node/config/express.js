@@ -4,13 +4,20 @@ var config = require('./config'),
     cookieParser = require('cookie-parser'),
     partials = require('express-partials');
 
-module.exports = function () {
+module.exports = function() {
     var app = express();
 
     app.use(cookieParser());
 
-    app.use(function (req,res,next) {
-        GLOBAL_PREMIUM = req.cookies.premium;
+    app.use(function(req, res, next) {
+        GLOBAL_PREMIUM = req.cookies.premium;        
+        GLOBAL_ADMIN = req.cookies.admin;
+        if(GLOBAL_ADMIN == undefined) {
+            GLOBAL_ADMIN = false;
+        }
+        if (GLOBAL_PREMIUM == undefined) {
+            GLOBAL_PREMIUM = false;
+        }
         next();
     });
 
@@ -27,9 +34,9 @@ module.exports = function () {
 
     require('../app/routes/about.server.routes.js')(app);
     require('../app/routes/index.server.routes.js')(app);
-    require('../app/routes/statistic.server.routes.js')(app);
     require('../app/routes/admin.server.routes.js')(app);
     require('../app/routes/login.server.routes.js')(app);
+    require('../app/routes/statistic.server.routes.js')(app);
     require('../app/routes/link.server.routes.js')(app);
 
     app.use(express.static('./public'));
