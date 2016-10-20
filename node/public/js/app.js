@@ -4,12 +4,10 @@ $(document).ready(function () {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
-        console.log($form.val());
         // send login information to server and validate
         var code = {
-            "code": $(".login-form").val()
+            "code": $form.val()
         };
-        console.log(code);
         $.ajax({
             url: "/login",
             method: "POST",
@@ -46,8 +44,6 @@ $(document).ready(function () {
         var customLink = $(".input-custom-link").val();
         if(customLink == undefined)
             customLink = "";
-        console.log(url);
-        console.log(customLink);
         var json = {
                 "shortlink": customLink,
                 "longlink": url
