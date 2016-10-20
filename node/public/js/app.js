@@ -59,7 +59,8 @@ $(document).ready(function () {
                 data: json,
                 dataType: "json",
                 success: function (res, status) {
-                    if (res !== null) {
+                    console.log(res);
+                    if (!res.error) {
                         $(".input-url").val(res.shortLink);
                         $(".input-url").select();
 
@@ -68,6 +69,8 @@ $(document).ready(function () {
                             $(".result").addClass("well");
                         }
                         displayShortenedLink(res.longLink, res.shortLink);
+                    } else {
+                        notie.alert("error", res.error, 2);
                     }
                 },
                 error: function (obj, status, err) {
