@@ -144,8 +144,8 @@ exports.findLongLink = function(req, res, next) {
         longLink: String,
         longURL: String
     };
-
-    if (GLOBAL_PREMIUM == false) {
+    console.log(link.shortlink);
+    if (GLOBAL_PREMIUM == false || link.shortlink=='') {
         Link.find({
                 "longlink": link.longlink
             },
