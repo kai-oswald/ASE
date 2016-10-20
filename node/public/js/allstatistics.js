@@ -60,42 +60,44 @@ $(document).ready(function () {
 
 
 function createTable(){
+    var heighttable= total*50;
+    if(heighttable<400){
+        heighttable=400;
+    }
     $('#container').highcharts({
-             chart: {
+            chart: {
                  type: 'bar',
-                 height: total*50,
+                 height: heighttable,
                  width: 1600
-             },
-             title: {
-                 text: 'Overview of all clicks'
-             },
-             
-             xAxis: {
-                 categories: categoriesarray,
-             },
-             yAxis: {
-                 min: 0,
-                    title: {
-                     text: 'Klicks',
-                     align: 'high'
-                 },
-                 labels: {
-                     overflow: 'justify'
-                 }
-             },
-             
-             credits: {
-                 enabled: false
-             },
-             series: [{
-                 name: 'Über dem QR Code',
-                 data: withqr
-             }, {
-                 name: 'Ohne QR',
-                 data: withoutqr
-             }]
-         });
-    
-}
-    
-    });
+            },
+            title: {
+                text: 'Overview of all clicks'
+            },
+            
+            xAxis: {
+             categories: categoriesarray
+            },
+            yAxis: {
+                tickInterval:1,
+                min: 0,
+                title: {
+                    text: 'Klicks',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Über dem QR Code',
+                data: withqr
+            }, {
+                name: 'Ohne QR',
+                data: withoutqr
+            }]
+        });
+    }
+});
