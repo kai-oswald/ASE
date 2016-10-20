@@ -60,10 +60,14 @@ $(document).ready(function () {
 
 
 function createTable(){
+    var heighttable= total*50;
+    if(heighttable<400){
+        heighttable=400;
+    }
     $('#container').highcharts({
             chart: {
                  type: 'bar',
-                 height: total*50,
+                 height: heighttable,
                  width: 1600
             },
             title: {
