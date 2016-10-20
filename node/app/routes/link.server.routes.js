@@ -18,3 +18,4 @@ module.exports = function(app) {
     app.route('/:slink').get(links.redirect);
 
 };
+ 

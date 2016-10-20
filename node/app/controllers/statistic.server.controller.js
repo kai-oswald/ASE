@@ -26,12 +26,10 @@ exports.allStatistic= function(req, res, next) {
 };
 
 exports.initStatistics = function(shortlink){
-    console.log("initnormal");
     initStatistic(shortlink,false);
 }
 
 exports.initQRStatistics = function(shortlink){
-    console.log("initqr");
     initStatistic(shortlink,true);   
 }
 
@@ -62,7 +60,7 @@ exports.list = function(req, res, next) {
     linkstats.find({}, function(err, stats) {
         if (err) {
             return next(err);
-        } else {//
+        } else {
             res.json(stats);
         }
     });
@@ -71,16 +69,16 @@ exports.list = function(req, res, next) {
 exports.showDetail= function(req, res){
     //get Longlink...
     Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
-            if (err) {
-                return next(err);
-            } else { 
-               res.render('stats', {
+        if (err) {
+            return next(err);
+        } else { 
+            res.render('stats', {
                 count: req.stats.count,
                 shortlink: req.stats.shortlink,
                 longlink: dbstats.longlink
-                });
-            }
-        });
+            });
+        }
+    });
 }
 
 exports.getLongLink = function(req,res,slink) {
@@ -151,19 +149,15 @@ exports.returnStats = function(req, res, slink) {
             if (err) {
                 return next(err);
             } else { 
-               res.render('stats', {
-                count: req.stats.count,
-                shortlink: req.stats.shortlink,
-                longlink: dbstats.longlink,
-                title: 'Statistiken',
-                layout: 'layout'
+                res.render('stats', {
+                    count: req.stats.count,
+                    shortlink: req.stats.shortlink,
+                    longlink: dbstats.longlink,
+                    title: 'Statistiken',
+                    layout: 'layout'
                 });
             }
         });
-   /* res.render('stats', {
-                count: req.stats.count,
-                shortlink: req.stats.shortlink
-                });*/
 }
 
 exports.getStatsByShort = function(req, res, next, slink) {
@@ -189,16 +183,14 @@ exports.getStatsByShort = function(req, res, next, slink) {
 
 function initStatistic(shortlink, qr){
     var linkstat = new linkstats();
-    console.log("test"+shortlink);
     linkstat.shortlink=shortlink;
     linkstat.count=0;
     linkstat.qrcode=qr;
     linkstat.save(function(err) {
-    if (err) {
-        return next(err);
-            } else { 
-                console.log("sucess");
-                            }
+        if (err) {
+            return next(err);
+        } else { 
+        }
     });    
 }
 

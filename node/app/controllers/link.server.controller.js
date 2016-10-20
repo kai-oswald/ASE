@@ -52,15 +52,18 @@ exports.text = function(req, res) {
 
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
-    statistic.updateStatistic(req.link.shortlink, false);
-    res.redirect(req.link.longlink)
+    if(req.link != null) {
+        statistic.updateStatistic(req.link.shortlink, false);
+        res.redirect(req.link.longlink);
+    }
 };
 
 exports.redirectQR = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
-    statistic.updateStatistic(req.link.shortlink, true);
-    res.redirect(req.link.longlink);
-    //console.log("test");
+    if(req.link != null){
+        statistic.updateStatistic(req.link.shortlink, true);
+        res.redirect(req.link.longlink);
+    }
 };
 
 exports.linkByShort = function(req, res, next, slink) {

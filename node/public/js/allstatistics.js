@@ -8,6 +8,7 @@ $(document).ready(function () {
         if(data0!=null&&data0.length!=0){
             for(var i=0; i<data0.length;i++)
             {
+                console.log(data0.length+ data0[1]);
                  $.get( '/stats/withqr/'+data0[i].shortlink, function( data ) {
                     if(data!=null){
                         withqr.push(data.count);

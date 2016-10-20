@@ -8,9 +8,9 @@ module.exports = function(app) {
     
     app.route('/detail').get(statistic.renderallstatistic);
     
-    app.route('/detail/:slink').get(statistic.returnStats);//.post(statistic.returnStats);
+    app.route('/detail/:slink4').get(statistic.returnStats);//.post(statistic.returnStats);
     
-    app.param('slink', statistic.getStatsByShort);
+    app.param('slink4', statistic.getStatsByShort);
     
     //app.param('/returnstats').post(statistic.returnStats);
     
