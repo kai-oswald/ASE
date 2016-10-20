@@ -45,8 +45,16 @@ $(document).ready(function () {
         {
             $('#total').html("Keine Einträge gefunden!");
         }
+        $("#shortdetailbtn").click(function () {
+            var link=$('#shortdetail').val();    
+            var url= 'http://localhost:8001/detail/'+link;
+            window.location=url;
+        });
         
-         
+        $('#shortdetail').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('shortdetailbtn').click();
+        });
          
     });
 
@@ -59,7 +67,7 @@ function createTable(){
                  width: 1600
              },
              title: {
-                 text: 'Übersicht'
+                 text: 'Overview of all clicks'
              },
              
              xAxis: {
