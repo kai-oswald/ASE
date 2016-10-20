@@ -4,13 +4,18 @@ var config = require('./config'),
     cookieParser = require('cookie-parser'),
     partials = require('express-partials');
 
-module.exports = function () {
+module.exports = function() {
     var app = express();
 
     app.use(cookieParser());
 
-    app.use(function (req,res,next) {
+    app.use(function(req, res, next) {
         GLOBAL_PREMIUM = req.cookies.premium;
+        if (GLOBAL_PREMIUM == undefined) {
+            GLOBAL_PREMIUM = false;
+        } else if (GLOBAL_PREMIUM == true) {
+            GLOBAL_PREMIUM = true;
+        }
         next();
     });
 
