@@ -52,9 +52,11 @@ exports.text = function(req, res) {
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
     var link = new Link(req.body);
-
-    statistic.updateStatistic(link.shortlink, false);
-    res.redirect(link.longlink)
+    
+    if (link != undefined) {
+        statistic.updateStatistic(link.shortlink, false);
+        res.redirect(link.longlink)
+    }
 };
 
 exports.redirectQR = function(req, res) {
@@ -68,13 +70,14 @@ exports.redirectQR = function(req, res) {
 
 exports.linkByShort = function(req, res, next, slink) {
     Link.findOne({
-            shortlink: slink
+            'shortlink': slink
         },
         function(err, link) {
             if (err) {
+                console.log(err);
                 return next(err);
             } else {
-                req.link = link;
+                req.body = link;
                 next();
             }
         }
@@ -109,7 +112,7 @@ exports.validateURL = function(req, res, next) {
             //Throw Error
             LinkError.shortlink = link.shortlink;
             LinkError.longlink = link.longlink;
-            LinkError.error = 'URL malformatted';
+            LinkError.error = 'Unable to shorten that link. It is not a valid url.';
 
             res.json(LinkError);
             res.end();
@@ -127,7 +130,7 @@ exports.findLongLink = function(req, res, next) {
         error: String
     };
 
-    if (GLOBAL_PREMIUM == 'false') {
+    if (GLOBAL_PREMIUM == false) {
         Link.find({
                 "longlink": link.longlink
             },
