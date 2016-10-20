@@ -4,7 +4,6 @@ $(document).ready(function () {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
-
         // send login information to server and validate
         var code = {
             "code": $form.val()
@@ -45,8 +44,6 @@ $(document).ready(function () {
         var customLink = $(".input-custom-link").val();
         if(customLink == undefined)
             customLink = "";
-        console.log(url);
-        console.log(customLink);
         var json = {
                 "shortlink": customLink,
                 "longlink": url
@@ -142,7 +139,7 @@ $(document).ready(function () {
     $(".btn-code").click(function () {
         var code = {
             "code": $(".input-code").val()
-        };
+        };        
         $.ajax({
             url: "/code",
             data: code,
