@@ -12,7 +12,6 @@ exports.create = function(req, res, next) {
         longLink: String,
         longURL: String
     };
-    console.log(link);
 
     LinkSuccess.shortLink = '/' + link.shortlink;
     LinkSuccess.shortURL = GLOBAL_SERVER + '/' + link.shortlink;
@@ -53,6 +52,7 @@ exports.text = function(req, res) {
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
     var link = new Link(req.body);
+
     statistic.updateStatistic(link.shortlink, false);
     res.redirect(link.longlink)
 };
@@ -60,6 +60,7 @@ exports.redirect = function(req, res) {
 exports.redirectQR = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
     var link = new Link(req.body);
+
     statistic.updateStatistic(link.shortlink, true);
     res.redirect(link.longlink);
     //console.log("test");
@@ -97,6 +98,7 @@ exports.validateURL = function(req, res, next) {
         longlink: String,
         error: String
     };
+
     if (validateUrl(link.longlink) == false) {
         if (validateUrl("http://" + link.longlink) == true) {
             link.longlink = "http://" + link.longlink;
@@ -124,7 +126,7 @@ exports.findLongLink = function(req, res, next) {
         longlink: String,
         error: String
     };
-    console.log(GLOBAL_PREMIUM);
+
     if (GLOBAL_PREMIUM == 'false') {
         Link.find({
                 "longlink": link.longlink
@@ -156,19 +158,13 @@ exports.checkLongLink = function(req, res, next) {
         error: String
     };
     var found = 'false';
-    console.log(GLOBAL_PREMIUM);
-    console.log(link.shortlink);
-    console.log(routes.indexOf(link.shortlink));
 
     if (routes.indexOf(link.shortlink) > -1) {
         found = 'true';
     }
-    console.log(found);
 
     if (GLOBAL_PREMIUM == 'true') {
-        console.log("global");
         if (found == 'true') {
-            console.log('Error');
             LinkError.shortlink = link.shortlink;
             LinkError.longlink = link.longlink;
             LinkError.error = "Shortlink " + link.shortlink + " is an application url";

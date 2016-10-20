@@ -13,8 +13,6 @@ module.exports = function() {
         GLOBAL_PREMIUM = req.cookies.premium;
         if (GLOBAL_PREMIUM == undefined) {
             GLOBAL_PREMIUM = false;
-        } else if (GLOBAL_PREMIUM == true) {
-            GLOBAL_PREMIUM = true;
         }
         next();
     });
