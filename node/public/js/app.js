@@ -91,6 +91,11 @@ $(document).ready(function () {
         if (e.keyCode == 13)
             $('.btn-shorten').click();
     });
+
+    $('.input-custom-link').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-shorten').click();
+    });
     var count = 36187;
     setInterval(function () {
         var rnd = Math.floor(Math.random() * 100);
@@ -112,7 +117,7 @@ $(document).ready(function () {
     $('.input-code').keypress(function (e) {
         if (e.keyCode == 13)
             $('.btn-code').click();
-    });
+    });    
 
     // Admin Page SignIn
     $(".btn-signin").click(function () {
