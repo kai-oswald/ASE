@@ -11,9 +11,13 @@ module.exports = function(app) {
     app.route('/all').get(links.list);
 
     app.route('/linktext').get(links.text).post(links.text);
+    
+    //redirect
+    app.route('/:slink').get(links.redirect);
 
     //redirect
     app.route('/:slink').get(links.redirect);
 
     app.param('slink', links.linkByShort);
 };
+ 

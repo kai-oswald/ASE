@@ -2,20 +2,34 @@ var linkstats = require('mongoose').model('LinkStatistic');
 var Linkmodell = require('mongoose').model('Link');
 var links = require('../../app/controllers/link.server.controller');
 
-
-exports.render = function(req, res) {
-    res.render('main', {
-        title: 'Willkommen'
+exports.renderallstatistic = function(req, res) {
+    res.render('allstatistic', {
+       layout:"layout",
+        title:"Statistiküberblick"
     })
 };
 
+exports.allStatistic= function(req, res, next) {
+    linkstats.find(
+        function(err, stats) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.json(stats);
+                next();
+
+            }
+        }
+    );
+    
+    
+};
+
 exports.initStatistics = function(shortlink){
-    console.log("initnormal");
     initStatistic(shortlink,false);
 }
 
 exports.initQRStatistics = function(shortlink){
-    console.log("initqr");
     initStatistic(shortlink,true);   
 }
 
@@ -46,7 +60,7 @@ exports.list = function(req, res, next) {
     linkstats.find({}, function(err, stats) {
         if (err) {
             return next(err);
-        } else {//
+        } else {
             res.json(stats);
         }
     });
@@ -55,18 +69,32 @@ exports.list = function(req, res, next) {
 exports.showDetail= function(req, res){
     //get Longlink...
     Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
-            if (err) {
-                return next(err);
-            } else { 
-               res.render('stats', {
+        if (err) {
+            return next(err);
+        } else { 
+            res.render('stats', {
                 count: req.stats.count,
                 shortlink: req.stats.shortlink,
                 longlink: dbstats.longlink
-                });
+            });
+        }
+    });
+}
+
+exports.getLongLink = function(req,res,slink) {
+     return res.json(req.stats);
+}
+
+exports.getLongLinkP = function(req,res,next,slink) {
+     Linkmodell.findOne({shortlink : slink},
+            function(err, dbstats) {
+            if (err) {
+                return next(err);
+            } else { 
+               req.stats = dbstats;
+                next();
             }
         });
-    
-    
 }
 
 exports.returnWithQR = function(req, res, slink) {
@@ -117,23 +145,27 @@ exports.getNoQRStatsByShort = function(req, res, next, slink) {
 
 
 exports.returnStats = function(req, res, slink) {
-     Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
+    if(req.stats!=null){
+        Linkmodell.findOne({shortlink : req.stats.shortlink},function(err, dbstats) {
             if (err) {
                 return next(err);
             } else { 
-               res.render('stats', {
-                count: req.stats.count,
-                shortlink: req.stats.shortlink,
-                longlink: dbstats.longlink,
-                title: 'Statistiken',
-                layout: 'layout'
+                res.render('stats', {
+                    count: req.stats.count,
+                    shortlink: req.stats.shortlink,
+                    longlink: dbstats.longlink,
+                    title: 'Statistiken',
+                    layout: 'layout'
                 });
             }
         });
-   /* res.render('stats', {
-                count: req.stats.count,
-                shortlink: req.stats.shortlink
-                });*/
+    }else{
+        //error
+        res.render('errorshorturl', {
+            title: 'Fehler!',
+            layout: 'layout'
+        });
+    }
 }
 
 exports.getStatsByShort = function(req, res, next, slink) {
@@ -159,16 +191,14 @@ exports.getStatsByShort = function(req, res, next, slink) {
 
 function initStatistic(shortlink, qr){
     var linkstat = new linkstats();
-    console.log("test"+shortlink);
     linkstat.shortlink=shortlink;
     linkstat.count=0;
     linkstat.qrcode=qr;
     linkstat.save(function(err) {
-    if (err) {
-        return next(err);
-            } else { 
-                console.log("sucess");
-                            }
+        if (err) {
+            return next(err);
+        } else { 
+        }
     });    
 }
 

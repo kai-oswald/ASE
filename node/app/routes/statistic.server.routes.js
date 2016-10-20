@@ -4,9 +4,13 @@ var bodyParser = require('body-parser');
 module.exports = function(app) {    
     app.route('/stat').get(statistic.list);
 
-    app.route('/detail/:slink').get(statistic.returnStats);//.post(statistic.returnStats);
+    app.route('/details').get(statistic.allStatistic);
     
-    app.param('slink', statistic.getStatsByShort);
+    app.route('/detail').get(statistic.renderallstatistic);
+    
+    app.route('/detail/:slink4').get(statistic.returnStats);//.post(statistic.returnStats);
+    
+    app.param('slink4', statistic.getStatsByShort);
     
     //app.param('/returnstats').post(statistic.returnStats);
     
