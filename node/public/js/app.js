@@ -4,11 +4,12 @@ $(document).ready(function () {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
-
+        console.log($form.val());
         // send login information to server and validate
         var code = {
-            "code": $form.val()
+            "code": $(".login-form").val()
         };
+        console.log(code);
         $.ajax({
             url: "/login",
             method: "POST",
@@ -142,7 +143,7 @@ $(document).ready(function () {
     $(".btn-code").click(function () {
         var code = {
             "code": $(".input-code").val()
-        };
+        };        
         $.ajax({
             url: "/code",
             data: code,
