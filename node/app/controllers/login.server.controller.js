@@ -2,7 +2,6 @@ var Login = require('mongoose').model('Login');
 
 exports.validate = function (req, res, next) {
     var login = new Login(req.body);
-    console.log(login);
     var result;
     Login.find({
         "code": login.code
