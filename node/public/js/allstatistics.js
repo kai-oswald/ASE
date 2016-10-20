@@ -47,7 +47,7 @@ $(document).ready(function () {
         }
         $("#shortdetailbtn").click(function () {
             var link=$('#shortdetail').val();    
-            var url= 'http://localhost:8001/detail/'+link;
+            var url= '/detail/'+link;
             window.location=url;
         });
         
@@ -75,7 +75,13 @@ function createTable(){
             },
             
             xAxis: {
-             categories: categoriesarray
+             categories: categoriesarray,
+             labels: {
+                 formatter: function() {
+                     return "<a href='/detail" + getShortLink(this.value) + "'>" + this.value + "</a>"
+                 },
+                 useHTML: true
+             }          
             },
             yAxis: {
                 tickInterval:1,
@@ -101,3 +107,7 @@ function createTable(){
         });
     }
 });
+
+function getShortLink(arr) {  
+    return arr.split(" ")[2];    
+}
