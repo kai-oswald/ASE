@@ -66,3 +66,9 @@ body {
 .form-signin input[type="password"] {
     margin-bottom: 10px;
 }
+
+.about-thumbnail {
+    height: 200px;
+    width: 200px;
+    border: none;
+}
