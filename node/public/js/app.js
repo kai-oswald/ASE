@@ -59,7 +59,8 @@ $(document).ready(function () {
                 data: json,
                 dataType: "json",
                 success: function (res, status) {
-                    if (res !== null) {
+                    console.log(res);
+                    if (!res.error) {
                         $(".input-url").val(res.shortLink);
                         $(".input-url").select();
 
@@ -68,6 +69,8 @@ $(document).ready(function () {
                             $(".result").addClass("well");
                         }
                         displayShortenedLink(res.longLink, res.shortLink);
+                    } else {
+                        notie.alert("error", res.error, 2);
                     }
                 },
                 error: function (obj, status, err) {
@@ -88,6 +91,11 @@ $(document).ready(function () {
         if (e.keyCode == 13)
             $('.btn-shorten').click();
     });
+
+    $('.input-custom-link').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-shorten').click();
+    });
     var count = 36187;
     setInterval(function () {
         var rnd = Math.floor(Math.random() * 100);
@@ -98,6 +106,7 @@ $(document).ready(function () {
     // Admin functionality
     $(".btn-generate").click(function () {
         // TODO: generate random Premium Code
+        $(".input-code").val(token());
     });
 
     $('#input-password').keypress(function (e) {
@@ -108,7 +117,7 @@ $(document).ready(function () {
     $('.input-code').keypress(function (e) {
         if (e.keyCode == 13)
             $('.btn-code').click();
-    });
+    });    
 
     // Admin Page SignIn
     $(".btn-signin").click(function () {
@@ -169,3 +178,11 @@ function displayShortenedLink(long, short) {
         $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-target=".input-url">Copy</div>');
     $(".result").append("</div>");
 }
+
+var rand = function() {
+    return Math.random().toString(36).substr(20); // remove `0.`
+};
+
+var token = function() {
+    return rand() + rand(); // to make it longer
+};
