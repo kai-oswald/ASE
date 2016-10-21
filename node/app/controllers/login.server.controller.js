@@ -23,12 +23,12 @@ exports.validate = function (req, res, next) {
                 result = {
                     "status": "error",
                     "err": "Invalid VIP Code"
-                }
+                };
             }
         }
         res.json(result);
     });
-}
+};
 
 exports.create = function (req, res, next) {
     var login = new Login(req.body);
@@ -43,12 +43,12 @@ exports.create = function (req, res, next) {
             result = {
                 "err": "An unknown error occured",
                 "code": login.code
-            }
+            };
         } else {
             result = {
                 "code": login.code
-            }
+            };
         }
         res.json(result);
     });
-}
+};

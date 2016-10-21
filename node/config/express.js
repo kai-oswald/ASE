@@ -10,9 +10,9 @@ module.exports = function() {
     app.use(cookieParser());
 
     app.use(function(req, res, next) {
-        GLOBAL_PREMIUM = req.cookies.premium;        
+        GLOBAL_PREMIUM = req.cookies.premium;
         GLOBAL_ADMIN = req.cookies.admin;
-        if(GLOBAL_ADMIN == undefined) {
+        if (GLOBAL_ADMIN == undefined) {
             GLOBAL_ADMIN = false;
         }
         if (GLOBAL_PREMIUM == undefined) {
@@ -32,6 +32,7 @@ module.exports = function() {
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
+    require('../app/routes/about.server.routes.js')(app);
     require('../app/routes/index.server.routes.js')(app);
     require('../app/routes/admin.server.routes.js')(app);
     require('../app/routes/login.server.routes.js')(app);

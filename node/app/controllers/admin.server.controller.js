@@ -1,9 +1,9 @@
 exports.render = function (req, res) {
-    // check if Admin is logged in and grant access    
+    // check if Admin is logged in and grant access
     res.render('admin', {
         title: 'Admin',
         layout: 'layout'
-    })
+    });
 };
 
 exports.validate = function (req, res) {

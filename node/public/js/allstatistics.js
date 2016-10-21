@@ -47,7 +47,7 @@ $(document).ready(function () {
         }
         $("#shortdetailbtn").click(function () {
             var link=$('#shortdetail').val();    
-            var url= 'http://localhost:8001/detail/'+link;
+            var url= '/detail/'+link;
             window.location=url;
         });
         
@@ -60,42 +60,54 @@ $(document).ready(function () {
 
 
 function createTable(){
+    var heighttable= total*50;
+    if(heighttable<400){
+        heighttable=400;
+    }
     $('#container').highcharts({
-             chart: {
+            chart: {
                  type: 'bar',
-                 height: total*50,
-                 width: 1600
-             },
-             title: {
-                 text: 'Overview of all clicks'
-             },
-             
-             xAxis: {
-                 categories: categoriesarray,
-             },
-             yAxis: {
-                 min: 0,
-                    title: {
-                     text: 'Klicks',
-                     align: 'high'
+                 height: heighttable,
+                 // width: 1600
+            },
+            title: {
+                text: 'Overview of all clicks'
+            },
+            
+            xAxis: {
+             categories: categoriesarray,
+             labels: {
+                 formatter: function() {
+                     return "<a href='/detail" + getShortLink(this.value) + "'>" + this.value + "</a>"
                  },
-                 labels: {
-                     overflow: 'justify'
-                 }
-             },
-             
-             credits: {
-                 enabled: false
-             },
-             series: [{
-                 name: 'Über dem QR Code',
-                 data: withqr
-             }, {
-                 name: 'Ohne QR',
-                 data: withoutqr
-             }]
-         });
-    
+                 useHTML: true
+             }          
+            },
+            yAxis: {
+                tickInterval:1,
+                min: 0,
+                title: {
+                    text: 'Klicks',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Über dem QR Code',
+                data: withqr
+            }, {
+                name: 'Ohne QR',
+                data: withoutqr
+            }]
+        });
+    }
+});
+
+function getShortLink(arr) {  
+    return arr.split(" ")[2];    
 }
-    
-    });
