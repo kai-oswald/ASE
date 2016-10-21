@@ -1,61 +1,61 @@
-$(document).ready(function () {
-    var withqr=0;
-    var withoutqr=0;
+$(document).ready(function() {
+    var withqr = 0;
+    var withoutqr = 0;
     console.log($('#shortlink').val());
-    
-    $.get( '/stats/withqr/'+$('#shortlink').val(), function( data ) {
-        if(data!=null){
-            withqr= data.count;
+
+    $.get('/stats/withqr/' + $('#shortlink').val(), function(data) {
+        if (data != null) {
+            withqr = data.count;
         }
-        $.get( '/stats/noqr/'+$('#shortlink').val(), function( data2 ) {
-            if(data2!=null) {
+        $.get('/stats/noqr/' + $('#shortlink').val(), function(data2) {
+            if (data2 != null) {
                 withoutqr = data2.count;
             }
-            console.log(withqr+" "+withoutqr);
-            var total= withoutqr+withqr;
+            console.log(withqr + " " + withoutqr);
+            var total = withoutqr + withqr;
             $('#total').html("Gesamt: " + total);
             //Container with circle
-                $('#container').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'Klicks'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
+            $('#container').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Klicks'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                             }
                         }
-                    },
-                    series: [{
-                        name: 'Brands',
-                        colorByPoint: true,
-                        data: [{
-                            name: 'Ohne QR Code',
-                            y: withoutqr
-                        }, {
-                            name: 'Mit QR Code',
-                            y: withqr
-                        }]
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Ohne QR Code',
+                        y: withoutqr
+                    }, {
+                        name: 'Mit QR Code',
+                        y: withqr
                     }]
-                });
+                }]
+            });
 
             // Table
-                $('#container2').highcharts({
+            $('#container2').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -79,4 +79,3 @@ $(document).ready(function () {
         });
     });
 });
-

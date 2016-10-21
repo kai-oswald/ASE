@@ -1,6 +1,6 @@
-$(document).ready(function () {
+$(document).ready(function() {
     new Clipboard('.btn');
-    $(".btn-login").click(function () {
+    $(".btn-login").click(function() {
         var $btn = $(this);
         var $form = $(".login-form");
         $btn.html('<i class="fa fa-refresh fa-spin"></i>');
@@ -12,7 +12,7 @@ $(document).ready(function () {
             url: "/login",
             method: "POST",
             data: code,
-            success: function (res) {
+            success: function(res) {
                 // success: log user in, disable VIP Code input
                 if (res.err) {
                     notie.alert("error", res.err, 2);
@@ -23,7 +23,7 @@ $(document).ready(function () {
                     setTimeout(location.reload.bind(location), 1000);
                 }
             },
-            error: function (req, status, err) {
+            error: function(req, status, err) {
                 // unknown error: show error message, reset inputs
                 notie.alert("error", req.responseText, 2);
                 $btn.html('<i class="fa fa-sign-in" aria-hidden="true"></i>');
@@ -33,21 +33,21 @@ $(document).ready(function () {
     });
 
     // VIP CODE: listen for enter key press
-    $(".login-form").keypress(function (e) {
-        if (e.keyCode == 13)
-            $('.btn-login').click();
+    $(".login-form").keypress(function(e) {
+        if (e.keyCode == 13) {
+            $('.btn-login').click();}
     });
 
     // make request to shorten link on button click
-    $(".btn-shorten").click(function () {
+    $(".btn-shorten").click(function() {
         var url = $(".input-url").val();
         var customLink = $(".input-custom-link").val();
-        if(customLink == undefined)
-            customLink = "";
+        if (customLink == undefined) {
+            customLink = "";}
         var json = {
                 "shortlink": customLink,
                 "longlink": url
-            }
+            };
             // validate url
         if (isURL(url)) {
             $.ajax({
@@ -55,7 +55,7 @@ $(document).ready(function () {
                 method: "POST",
                 data: json,
                 dataType: "json",
-                success: function (res, status) {
+                success: function(res, status) {
                     console.log(res);
                     if (!res.error) {
                         $(".input-url").val(res.shortLink);
@@ -70,7 +70,7 @@ $(document).ready(function () {
                         notie.alert("error", res.error, 2);
                     }
                 },
-                error: function (obj, status, err) {
+                error: function(obj, status, err) {
                     if (err === "") {
                         err = "An error occured while processing your request.";
                     }
@@ -84,40 +84,40 @@ $(document).ready(function () {
     });
 
     // listen for enter keypress
-    $('.input-url').keypress(function (e) {
+    $('.input-url').keypress(function(e) {
         if (e.keyCode == 13)
-            $('.btn-shorten').click();
+            {$('.btn-shorten').click();}
     });
 
-    $('.input-custom-link').keypress(function (e) {
+    $('.input-custom-link').keypress(function(e) {
         if (e.keyCode == 13)
-            $('.btn-shorten').click();
+            {$('.btn-shorten').click();}
     });
     var count = 36187;
-    setInterval(function () {
+    setInterval(function() {
         var rnd = Math.floor(Math.random() * 100);
         count += rnd;
         $(".count").html(count);
     }, 1000);
 
     // Admin functionality
-    $(".btn-generate").click(function () {
+    $(".btn-generate").click(function() {
         // TODO: generate random Premium Code
         $(".input-code").val(token());
     });
 
-    $('#input-password').keypress(function (e) {
+    $('#input-password').keypress(function(e) {
         if (e.keyCode == 13)
-            $('.btn-signin').click();
+          {  $('.btn-signin').click();}
     });
 
-    $('.input-code').keypress(function (e) {
+    $('.input-code').keypress(function(e) {
         if (e.keyCode == 13)
-            $('.btn-code').click();
-    });    
+            {$('.btn-code').click();}
+    });
 
     // Admin Page SignIn
-    $(".btn-signin").click(function () {
+    $(".btn-signin").click(function() {
         var passwd = {
             password: $("#input-password").val()
         };
@@ -125,30 +125,30 @@ $(document).ready(function () {
             url: "/admin",
             data: passwd,
             method: "POST",
-            success: function (data) {
+            success: function(data) {
                 if (!data.err) {
                     location.reload();
                 } else {
-                    notie.alert("error", data.err, 2)
+                    notie.alert("error", data.err, 2);
                 }
             }
         });
     });
 
     // Submit new Premium Code
-    $(".btn-code").click(function () {
+    $(".btn-code").click(function() {
         var code = {
             "code": $(".input-code").val()
-        };        
+        };
         $.ajax({
             url: "/code",
             data: code,
             method: "POST",
-            success: function (data) {
+            success: function(data) {
                 if (!data.err) {
                     notie.alert("success", "Succesfully created Premium Code '" + data.code + "'", 2);
                 } else {
-                    notie.alert("error", data.err, 2)
+                    notie.alert("error", data.err, 2);
                 }
             }
         });
@@ -167,13 +167,13 @@ function isURL(str) {
 }
 
 function displayShortenedLink(long, short, shortUrl, shortQR) {
-        $(".result").append("<div>" + long + ": " + "<a href='" + short + "'>" + short + "</a>");
-        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-text="' + shortUrl + '">Copy</div></div>');
-    if(Cookies.get('premium') == 'true') {
+    $(".result").append("<div>" + long + ": " + "<a href='" + short + "'>" + short + "</a>");
+    $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-text="' + shortUrl + '">Copy</div></div>');
+    if (Cookies.get('premium') == 'true') {
         $(".result").append('<div class="QRCode"><img src=' +
             '"https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=f5f5f5&data=' + shortQR + '"></div>');
     }
-        $(".result").append('<a class="btn btn-default" href="/detail'+short+'" role="button">Statistiken zum Link</a>');
+    $(".result").append('<a class="btn btn-default" href="/detail' + short + '" role="button">Statistiken zum Link</a>');
 }
 
 var rand = function() {

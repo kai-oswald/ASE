@@ -1,6 +1,6 @@
 # ASE [![Join the chat at https://gitter.im/ASEASE/Lobby](https://badges.gitter.im/ASEASE/Lobby.svg)](https://gitter.im/ASEASE/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 Ziel dieses Projektes ist die Entwicklung eines einfachen, schnellen und schmerzlosen URL-Shortener.  
-Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermöglicht wird und neues Features einfacher umgesetzt weredn können.
+Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermöglicht wird und neue Features einfacher umgesetzt werden können.
 
 # Features:
 - Erstellen von Kurz-Urls: https://www.google.de/search?q=google&oq=go&aqs=chrome.3.69i60l3j0l2j69i65.2215j0j1&sourceid=chrome&ie=UTF-8 -> lorem.de/JowmW
@@ -16,7 +16,7 @@ Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermögl
 - [EJS](http://www.embeddedjs.com/)
 - [Angular](https://angularjs.org/)
 - [Express](http://expressjs.com/de/)
-- Vielleicht [Silenium](http://docs.seleniumhq.org/) für GUI Tests
+- Vielleicht [Selenium](http://docs.seleniumhq.org/) für GUI Tests
 
 # Bibliotheken:
 - [Bootstrap](http://getbootstrap.com/)
