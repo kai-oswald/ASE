@@ -1,22 +1,28 @@
-# ASE:
-[![Join the chat at https://gitter.im/ASEASE/Lobby](https://badges.gitter.im/ASEASE/Lobby.svg)](https://gitter.im/ASEASE/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+# ASE [![Join the chat at https://gitter.im/ASEASE/Lobby](https://badges.gitter.im/ASEASE/Lobby.svg)](https://gitter.im/ASEASE/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+Ziel dieses Projektes ist die Entwicklung eines einfachen, schnellen und schmerzlosen URL-Shortener.  
+Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermöglicht wird und neues Features einfacher umgesetzt weredn können.
 
-# System/Anwendung:
-Diese Anwendung soll ein URL Shortener werden. Die Grundfunktion soll dabei das verkürzen eines Links sein, der dann auf die entsprechende Weiterleitung verweist. 
-Zusätzliche Optionen die, je nach Fortschritt des Projektes, hinzugefügt werden können, sind folgende:
-- Benutzerverwaltung (Bsp.: Gespeicherte Links)
-- "Special" Links: Das Festlegen des verkürzten Links (Bsp.: Statt "abc.de/dcab" -> "abc.de/abcd")
-- Hochladen von Bildern mit entsprechenden Links 
+# Features:
+- Erstellen von Kurz-Urls: https://www.google.de/search?q=google&oq=go&aqs=chrome.3.69i60l3j0l2j69i65.2215j0j1&sourceid=chrome&ie=UTF-8 -> lorem.de/JowmW
+- Erstellen von Custom Kurz-Urls wie z.bsp. lorem.de/HelloPepe (**Premium**)
+- Erstellen von QR-Codes (**Premium**)
+- Statistiken für alle erstellten Kurz-Urls
+- Statistiken für einzelne Kurz-Urls
+- Admin-Panel zum erstellen von Premium-Codes
 
 # Technologien:
-- MongoDB as DB
-- NodeJS as Backend
-- ejs as view engine 
-- maybe Angular - frontend
-- maybe express as NodeJS Framework
-- maybe "Silenium" Tests for GUI Tests
+- [MongoDB](https://www.mongodb.com/de)
+- [NodeJS](https://nodejs.org/en/)
+- [EJS](http://www.embeddedjs.com/)
+- [Angular](https://angularjs.org/)
+- [Express](http://expressjs.com/de/)
+- Vielleicht [Silenium](http://docs.seleniumhq.org/) für GUI Tests
 
 # Bibliotheken:
-- NotieJS
-- JQuery
-- Bootstrap
+- [Bootstrap](http://getbootstrap.com/)
+- [notie.js](https://github.com/jaredreich/notie)
+- [JQuery](https://jquery.com/)
+- [clipboard.js](https://clipboardjs.com/)
+- [Highcharts](http://www.highcharts.com/)
+- [js-cookie](https://github.com/js-cookie/js-cookie)
+- [particles.js](https://github.com/VincentGarreau/particles.js/)
