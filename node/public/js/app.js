@@ -65,7 +65,7 @@ $(document).ready(function () {
                         if (!$(".result").hasClass("well")) {
                             $(".result").addClass("well");
                         }
-                        displayShortenedLink(res.longLink, res.shortLink, res.shortURL);
+                        displayShortenedLink(res.longLink, res.shortLink, res.shortURL, res.shortQR);
                     } else {
                         notie.alert("error", res.error, 2);
                     }
@@ -155,7 +155,6 @@ $(document).ready(function () {
     });
 });
 
-
 // validates a URL
 function isURL(str) {
     var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
@@ -167,14 +166,14 @@ function isURL(str) {
     return pattern.test(str);
 }
 
-function displayShortenedLink(long, short, shortUrl) {   
-    $(".result").append("<div class='row'>");
-        $(".result").append("<div>" + long + ": " + "<a href='" + short + "'>" + short + "</a></div>");
-        $(".result").append('<div> QR Code: <img src=' +
-            '"https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=f5f5f5&data=' + short +'"></div>');
-        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-text="' + shortUrl + '">Copy</div>');
+function displayShortenedLink(long, short, shortUrl, shortQR) {
+        $(".result").append("<div>" + long + ": " + "<a href='" + short + "'>" + short + "</a>");
+        $(".result").append(' <div type="button" class="btn btn-default pull-right" data-clipboard-text="' + shortUrl + '">Copy</div></div>');
+    if(Cookies.get('premium') == 'true') {
+        $(".result").append('<div class="QRCode"><img src=' +
+            '"https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=f5f5f5&data=' + shortQR + '"></div>');
+    }
         $(".result").append('<a class="btn btn-default" href="/detail'+short+'" role="button">Statistiken zum Link</a>');
-    $(".result").append("</div>");
 }
 
 var rand = function() {

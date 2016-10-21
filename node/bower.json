@@ -12,6 +12,7 @@
     "angular": "^1.5.8",
     "notie": "^3.9.4",
     "clipboard": "^1.5.12",
-    "highcharts": "^5.0.0"
+    "highcharts": "^5.0.0",
+    "js-cookie": "^2.1.3"
   }
 }

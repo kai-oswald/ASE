@@ -17,7 +17,7 @@ exports.validate = function (req, res, next) {
                 };
                 res.cookie('premium', 'true', {
                     maxAge: 900000,
-                    httpOnly: true
+                    httpOnly: false
                 });
             } else {
                 result = {

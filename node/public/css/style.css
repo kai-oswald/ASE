@@ -66,3 +66,8 @@ body {
 .form-signin input[type="password"] {
     margin-bottom: 10px;
 }
+
+.QRCode{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
