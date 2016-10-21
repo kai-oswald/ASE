@@ -10,9 +10,9 @@ module.exports = function() {
     app.use(cookieParser());
 
     app.use(function(req, res, next) {
-        GLOBAL_PREMIUM = req.cookies.premium;        
+        GLOBAL_PREMIUM = req.cookies.premium;
         GLOBAL_ADMIN = req.cookies.admin;
-        if(GLOBAL_ADMIN == undefined) {
+        if (GLOBAL_ADMIN == undefined) {
             GLOBAL_ADMIN = false;
         }
         if (GLOBAL_PREMIUM == undefined) {

@@ -1,6 +1,5 @@
 var Link = require('mongoose').model('Link');
 var url = require('url');
-var Linkstats = require('mongoose').model('LinkStatistic');
 var statistic = require('../../app/controllers/statistic.server.controller');
 
 exports.create = function(req, res, next) {
@@ -48,7 +47,7 @@ exports.list = function(req, res, next) {
 
 exports.text = function(req, res) {
     console.log(req.body);
-}
+};
 
 exports.redirect = function(req, res) {
     //Longlink has to save in standardformat to make this redirect correct
@@ -58,7 +57,7 @@ exports.redirect = function(req, res) {
     console.log(link.shortlink);
     if (link != undefined) {
         statistic.updateStatistic(link.shortlink, false);
-        res.redirect(link.longlink)
+        res.redirect(link.longlink);
     }
 
 };
@@ -81,7 +80,9 @@ exports.linkByShort = function(req, res, next, slink) {
                 return next(err);
             } else {
                 if (link == null) {
-                    res.status(404);
+                    res.status(404).render('404', {
+                        title: "Sorry, page not found"
+                    });
                     res.end();
                 } else {
                     req.body = link;
@@ -132,11 +133,6 @@ exports.findLongLink = function(req, res, next) {
     //Check if longlink (e.g. google.de) already exists in Database
     //When found, the shortlink of the database gets returned, otherwise the shortlink stays the same
     var link = new Link(req.body);
-    var LinkError = {
-        shortlink: String,
-        longlink: String,
-        error: String
-    };
     var LinkSuccess = {
         shortLink: String,
         shortURL: String,
@@ -145,7 +141,7 @@ exports.findLongLink = function(req, res, next) {
         longURL: String
     };
     console.log(link.shortlink);
-    if (GLOBAL_PREMIUM == false || link.shortlink=='') {
+    if (GLOBAL_PREMIUM == false || link.shortlink == '') {
         Link.find({
                 "longlink": link.longlink
             },
@@ -261,14 +257,15 @@ exports.checkShortLink = function(req, res, next) {
             }
         }
     );
-}
+};
 
 function randomText() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for (var i = 0; i < 5; i++)
+    for (var i = 0; i < 5; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
 
     return text;
 }

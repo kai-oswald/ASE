@@ -12,6 +12,7 @@
     "angular": "^1.5.8",
     "notie": "^3.9.4",
     "clipboard": "^1.5.12",
-    "highcharts": "^5.0.0"
+    "highcharts": "^5.0.0",
+    "particles.js": "^2.0.0"
   }
 }
