@@ -67,6 +67,10 @@ body {
     margin-bottom: 10px;
 }
 
+.QRCode {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 .about-thumbnail {
     height: 200px;
     width: 200px;
