@@ -73,6 +73,9 @@ body {
     border: none;
 }
 
+.allstats {
+    margin-top: 50px;
+}
 #particles-js {
   width: 100%;
   height: 79%;

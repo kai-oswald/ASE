@@ -68,7 +68,7 @@ function createTable(){
             chart: {
                  type: 'bar',
                  height: heighttable,
-                 width: 1600
+                 // width: 1600
             },
             title: {
                 text: 'Overview of all clicks'

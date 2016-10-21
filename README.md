@@ -11,7 +11,8 @@ Zusätzliche Optionen die, je nach Fortschritt des Projektes, hinzugefügt werde
 # Technologien:
 - MongoDB as DB
 - NodeJS as Backend
-- Angular - frontend
+- ejs as view engine 
+- maybe Angular - frontend
 - maybe express as NodeJS Framework
 - maybe "Silenium" Tests for GUI Tests
 
