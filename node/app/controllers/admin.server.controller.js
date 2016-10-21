@@ -1,4 +1,4 @@
-exports.render = function (req, res) {
+exports.render = function(req, res) {
     // check if Admin is logged in and grant access
     res.render('admin', {
         title: 'Admin',
@@ -6,7 +6,7 @@ exports.render = function (req, res) {
     });
 };
 
-exports.validate = function (req, res) {
+exports.validate = function(req, res) {
     if (req.body.password === "qwer") {
         res.cookie('admin', 'true', {
             maxAge: 900000,

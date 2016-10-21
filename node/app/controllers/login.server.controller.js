@@ -1,11 +1,11 @@
 var Login = require('mongoose').model('Login');
 
-exports.validate = function (req, res, next) {
+exports.validate = function(req, res, next) {
     var login = new Login(req.body);
     var result;
     Login.find({
         "code": login.code
-    }, function (err, docs) {
+    }, function(err, docs) {
         if (err) {
             return next(err);
         } else {
@@ -30,14 +30,14 @@ exports.validate = function (req, res, next) {
     });
 };
 
-exports.create = function (req, res, next) {
+exports.create = function(req, res, next) {
     var login = new Login(req.body);
     var result;
 
     // TODO: check if code already exists
 
     // save code
-    login.save(function (err) {
+    login.save(function(err) {
         if (err) {
             // error
             result = {
