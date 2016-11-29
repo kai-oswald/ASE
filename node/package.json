@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-partials": "^0.3.0",
+    "mocha": "^3.2.0",
     "mongoose": "^4.6.3",
-    "multer": "^1.2.0"
+    "multer": "^1.2.0",
+    "request": "^2.79.0"
   },
   "description": "Test",
   "main": "index.js",
