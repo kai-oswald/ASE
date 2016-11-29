@@ -1,4 +1,7 @@
-var Link = require('mongoose').model('Link');
+var mongoose = require('mongoose');
+require('../models/link.server.model');
+require('../models/statistics.server.model');
+var Link = mongoose.model("Link");
 var url = require('url');
 var statistic = require('../../app/controllers/statistic.server.controller');
 
@@ -261,7 +264,7 @@ exports.checkShortLink = function(req, res, next) {
     );
 };
 
-function randomText() {
+exports.randomText = function() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
