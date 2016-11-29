@@ -9,6 +9,7 @@
     "express": "^4.14.0",
     "express-partials": "^0.3.0",
     "mocha": "^3.2.0",
+    "mocha-mongoose": "^1.2.0",
     "mongoose": "^4.6.3",
     "multer": "^1.2.0",
     "request": "^2.79.0"
@@ -17,7 +18,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha --reporter spec",
     "start": "nodemon server.js"
   },
   "author": "",
