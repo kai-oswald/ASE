@@ -12,6 +12,7 @@
     "mocha-mongoose": "^1.2.0",
     "mongoose": "^4.6.3",
     "multer": "^1.2.0",
+    "node-mocks-http": "^1.5.4",
     "request": "^2.79.0"
   },
   "description": "Test",
