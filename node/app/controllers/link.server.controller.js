@@ -5,8 +5,7 @@ var Link = mongoose.model("Link");
 var url = require('url');
 var statistic = require('../../app/controllers/statistic.server.controller');
 
-exports.createLinkModel = function (model) {
-    var link = new Link(model);
+var createLinkModel = function (link) {
     var LinkSuccess = {
         shortLink: String,
         shortURL: String,
@@ -17,15 +16,18 @@ exports.createLinkModel = function (model) {
     LinkSuccess.shortLink = '/' + link.shortlink;
     LinkSuccess.shortURL = GLOBAL_SERVER + '/' + link.shortlink;
     LinkSuccess.shortQR = GLOBAL_SERVER + '/qr/' + link.shortlink;
-    // LinkSuccess.longLink = url.parse(link.longlink).hostname;
+    LinkSuccess.longLink = url.parse(link.longlink).hostname;
     LinkSuccess.longURL = link.longlink;    
     return LinkSuccess;
-}
+};
 
+// fixes "createLinkModel is not defined" error
+exports.createLinkModel = createLinkModel; 
 
 exports.create = function (req, res, next) {
     console.log("create");
-    var LinkSuccess = createLinkModel(req.body);  
+    var link = new Link(req.body);    
+    var LinkSuccess = createLinkModel(link);  
     link.save(function (err) {
         if (err) {
             return next(err);

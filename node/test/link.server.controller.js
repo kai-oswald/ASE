@@ -4,6 +4,7 @@ require('../app/models/link.server.model');
 var Link = mongoose.model("Link");
 var link = require("../app/controllers/link.server.controller.js");
 var httpMocks = require('node-mocks-http');
+var url = require("url");
 
 describe("Link Controller", function () {
   describe("Random Text Generator", function () {
@@ -22,6 +23,7 @@ describe("Link Controller", function () {
       expect(model.shortURL).to.equal("localhost:3000/abcde");
       expect(model.shortQR).to.equal("localhost:3000/qr/abcde");
       expect(model.longURL).to.equal("https://google.de");
+      expect(model.longLink).to.equal("google.de");
     });    
   }); 
     
@@ -30,11 +32,9 @@ describe("Link Controller", function () {
             var req = httpMocks.createRequest({body:{shortlink:'stats', longlink:'testt.de'}});
             var res = httpMocks.createResponse();
             GLOBAL_PREMIUM='true';
-            console.log(req);
             var re = link.checkLongLink(req, res, function() {
                 expect(res.error).to.equal(200); //gesetzt?
-            });
-            
+            });            
         });
     });   
     describe("CheckLongLink test", function() {
