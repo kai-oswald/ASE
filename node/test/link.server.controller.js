@@ -14,6 +14,7 @@ describe("Link Controller", function () {
       expect(rnd.length).to.equal(5);
     });    
   });
+});
   describe("Create Link Model", function () {
     it("creates an extended link model from shorter model", function () {
       var mock = { shortlink: "abcde", longlink: "https://google.de"};
@@ -60,4 +61,29 @@ describe("Link Controller", function () {
         });
     });   
     
+    describe("Link Controller", function () {
+        describe("Check Short Link", function () {
+            it("checks if shortlink already exists", function () {
+                GLOBAL_SERVER = 'localhost:8001';
+                GLOBAL_PREMIUM = true;
+                var req = httpMocks.createRequest({body: {shortlink: 'abc', longlink: 'www.abc.de'}});
+                var res = httpMocks.createResponse();
+                link.create(req, res);
+                link.checkShortLink(req, res);
+                expect(res.statusCode).to.equal(200);
+            });
+        });
+    });
+
+describe("Link Controller", function () {
+    describe("Check Short Link", function () {
+        it("checks if shortlink is a new one", function () {
+            GLOBAL_SERVER = 'localhost:8001';
+            GLOBAL_PREMIUM = true;
+            var req = httpMocks.createRequest({body: {shortlink: 'abc', longlink: 'www.abc.de'}});
+            var res = httpMocks.createResponse();
+            link.checkShortLink(req, res);
+            expect(res.statusCode).to.equal(200);
+        });
+    });
 });
