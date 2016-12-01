@@ -26,3 +26,7 @@ Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermögl
 - [Highcharts](http://www.highcharts.com/)
 - [js-cookie](https://github.com/js-cookie/js-cookie)
 - [particles.js](https://github.com/VincentGarreau/particles.js/)
+
+# Tests durchführen:
+- cd node
+- npm test
