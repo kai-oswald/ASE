@@ -165,6 +165,7 @@ describe("Link Controller", function () {
             GLOBAL_SERVER = 'localhost:8001';
             var req = httpMocks.createRequest({
                 body: {
+                    error: '',
                     shortlink: 'abcde',
                     longlink: 'www.abcde.de'
                 }
@@ -176,3 +177,4 @@ describe("Link Controller", function () {
         });
     });
 });
+
