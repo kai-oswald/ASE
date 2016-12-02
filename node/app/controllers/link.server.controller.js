@@ -25,7 +25,6 @@ var createLinkModel = function (link) {
 exports.createLinkModel = createLinkModel; 
 
 exports.create = function (req, res, next) {
-    console.log("create");
     var link = new Link(req.body);    
     var LinkSuccess = createLinkModel(link);  
     link.save(function (err) {
@@ -52,16 +51,10 @@ exports.list = function (req, res, next) {
     });
 };
 
-exports.text = function (req, res) {
-    console.log(req.body);
-};
 
 exports.redirect = function (req, res) {
     //Longlink has to save in standardformat to make this redirect correct
-    console.log("redi");
-
     var link = new Link(req.body);
-    console.log(link.shortlink);
     if (link != undefined) {
         statistic.updateStatistic(link.shortlink, false);
         res.redirect(link.longlink);
@@ -149,7 +142,6 @@ exports.findLongLink = function (req, res, next) {
         longLink: String,
         longURL: String
     };
-    console.log(link.shortlink);
     if (GLOBAL_PREMIUM == false || link.shortlink == '') {
         Link.find({
                 "longlink": link.longlink
@@ -268,7 +260,7 @@ exports.checkShortLink = function (req, res, next) {
     );
 };
 
-exports.randomText = function () {
+var randomText = function() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -279,7 +271,9 @@ exports.randomText = function () {
     return text;
 }
 
-function validateUrl(value) {
+var validateUrl = function(value) {
     var regex = new RegExp("^(http[s]?:\\/\\/){1}(www\\.)?([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
     return regex.test(value);
 }
+exports.randomText = randomText;
+exports.validateUrl = validateUrl;
