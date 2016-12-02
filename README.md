@@ -16,6 +16,7 @@ Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermögl
 - [EJS](http://www.embeddedjs.com/)
 - [Angular](https://angularjs.org/)
 - [Express](http://expressjs.com/de/)
+- [Mocha](https://mochajs.org/) und [Chai](http://chaijs.com/) für Unit Tests
 - Vielleicht [Selenium](http://docs.seleniumhq.org/) für GUI Tests
 
 # Bibliotheken:
@@ -29,4 +30,5 @@ Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermögl
 
 # Tests durchführen:
 - cd node
+- npm install
 - npm test
