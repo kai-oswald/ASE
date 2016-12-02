@@ -79,7 +79,7 @@ describe("Link Controller", function () {
     });
 
     describe("Check Short Link", function () {
-        it("checks if shortlink already exists", function () {
+        it("checks if a Short Link already exists", function () {
             GLOBAL_SERVER = 'localhost:8001';
             GLOBAL_PREMIUM = "true";
             var req = httpMocks.createRequest({
@@ -96,7 +96,7 @@ describe("Link Controller", function () {
     });
 
     describe("Check Short Link", function () {
-        it("checks if shortlink is a new one", function () {
+        it("checks if Short Link is a new one", function () {
             GLOBAL_SERVER = 'localhost:8001';
             GLOBAL_PREMIUM = "true";
             var req = httpMocks.createRequest({
@@ -165,6 +165,7 @@ describe("Link Controller", function () {
             GLOBAL_SERVER = 'localhost:8001';
             var req = httpMocks.createRequest({
                 body: {
+                    error: '',
                     shortlink: 'abcde',
                     longlink: 'www.abcde.de'
                 }
@@ -176,3 +177,4 @@ describe("Link Controller", function () {
         });
     });
 });
+
