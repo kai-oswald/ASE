@@ -260,7 +260,7 @@ exports.checkShortLink = function (req, res, next) {
     );
 };
 
-exports.randomText = function () {
+var randomText = function() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -271,9 +271,9 @@ exports.randomText = function () {
     return text;
 }
 
-function validateUrl(value) {
+var validateUrl = function(value) {
     var regex = new RegExp("^(http[s]?:\\/\\/){1}(www\\.)?([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
     return regex.test(value);
 }
-
+exports.randomText = randomText;
 exports.validateUrl = validateUrl;
