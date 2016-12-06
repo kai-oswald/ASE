@@ -1,5 +1,6 @@
 var linkstats = require('mongoose').model('LinkStatistic');
 var Linkmodell = require('mongoose').model('Link');
+var statisticcontroller = require('../../app/controllers/statistic.server.controller');
 
 exports.getStatsByShort = function(req, res, next, slink){
   linkstats.findOne({
@@ -126,7 +127,7 @@ exports.updateStatistic = function(shortlink, qr) {
                 return next(err);
             } else {
                 if (stats == null) {
-                    initStatistic(shortlink, false);
+                    statisticcontroller.initStatistics(shortlink, false);
                 } else {
                     var tmpcount = stats.count + 1;
                     linkstats.findByIdAndUpdate(stats.id, {
