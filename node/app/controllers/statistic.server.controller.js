@@ -1,5 +1,6 @@
 var linkstats = require('mongoose').model('LinkStatistic');
 var Linkmodell = require('mongoose').model('Link');
+var linkservice = require('../../app/services/statistic.server.service');
 
 exports.renderallstatistic = function(req, res) {
     res.render('allstatistic', {
@@ -9,16 +10,7 @@ exports.renderallstatistic = function(req, res) {
 };
 
 exports.allStatistic = function(req, res, next) {
-    linkstats.find(
-        function(err, stats) {
-            if (err) {
-                return next(err);
-            } else {
-                return res.json(stats);
-                next();
-            }
-        }
-    );
+    linkservice.allStatistic(req, res, next);
 };
 
 exports.initStatistics = function(shortlink) {
@@ -30,57 +22,15 @@ exports.initQRStatistics = function(shortlink) {
 };
 
 exports.updateStatistic = function(shortlink, qr) {
-    linkstats.findOne({
-            shortlink: shortlink,
-            qrcode: qr
-        },
-        function(err, stats) {
-            if (err) {
-                return next(err);
-            } else {
-                if (stats == null) {
-                    initStatistic(shortlink, false);
-                } else {
-                    var tmpcount = stats.count + 1;
-                    linkstats.findByIdAndUpdate(stats.id, {
-                        $set: {
-                            count: tmpcount
-                        }
-                    }, function(err, stats) {
-                        if (err) {
-                            console.log("error while updating");
-                        }
-                    });
-                }
-            }
-        });
+    linkservice.updateStatistic(shortlink, qr);
 };
 
 exports.list = function(req, res, next) {
-    linkstats.find({}, function(err, stats) {
-        if (err) {
-            return next(err);
-        } else {
-            res.json(stats);
-        }
-    });
+    linkservice.list(req, res, next);
 };
 
 exports.showDetail = function(req, res) {
-    //get Longlink...
-    Linkmodell.findOne({
-        shortlink: req.stats.shortlink
-    }, function(err, dbstats) {
-        if (err) {
-            return next(err);
-        } else {
-            res.render('stats', {
-                count: req.stats.count,
-                shortlink: req.stats.shortlink,
-                longlink: dbstats.longlink
-            });
-        }
-    });
+    linkservice.showDetail(req, res);
 };
 
 exports.getLongLink = function(req, res, slink) {
@@ -88,17 +38,7 @@ exports.getLongLink = function(req, res, slink) {
 };
 
 exports.getLongLinkP = function(req, res, next, slink) {
-    Linkmodell.findOne({
-            shortlink: slink
-        },
-        function(err, dbstats) {
-            if (err) {
-                return next(err);
-            } else {
-                req.stats = dbstats;
-                next();
-            }
-        });
+    linkservice.getLongLinkP(req, res, next, slink);
 }
 
 exports.returnWithQR = function(req, res, slink) {
@@ -110,55 +50,17 @@ exports.returnWithNoQR = function(req, res, slink) {
 };
 
 exports.getWithQRStatsByShort = function(req, res, next, slink) {
-    linkstats.findOne({
-            shortlink: slink,
-            qrcode: true
-        },
-        function(err, stats) {
-            if (err) {
-                return next(err);
-            } else {
-                req.stats = stats;
-                next();
-            }
-        }
-    );
+    linkservice.getWithQRStatsByShort(req, res, next, slink);
 };
 
 exports.getNoQRStatsByShort = function(req, res, next, slink) {
-    linkstats.findOne({
-            shortlink: slink,
-            qrcode: false
-        },
-        function(err, stats) {
-            if (err) {
-                return next(err);
-            } else {
-                req.stats = stats;
-                next();
-            }
-        }
-    );
+  linkservice.getNoQRStatsByShort(req, res, next, slink);
 };
 
 
 exports.returnStats = function(req, res, slink) {
     if (req.stats != null) {
-        Linkmodell.findOne({
-            shortlink: req.stats.shortlink
-        }, function(err, dbstats) {
-            if (err) {
-                return next(err);
-            } else {
-                res.render('stats', {
-                    count: req.stats.count,
-                    shortlink: req.stats.shortlink,
-                    longlink: dbstats.longlink,
-                    title: 'Statistiken',
-                    layout: 'layout'
-                });
-            }
-        });
+      linkservice.returnStats(req, res, slink);
     } else {
         //error
         res.render('errorshorturl', {
@@ -166,22 +68,11 @@ exports.returnStats = function(req, res, slink) {
             layout: 'layout'
         });
     }
+
 };
 
 exports.getStatsByShort = function(req, res, next, slink) {
-    linkstats.findOne({
-            shortlink: slink,
-            qrcode: false
-        },
-        function(err, stats) {
-            if (err) {
-                return next(err);
-            } else {
-                req.stats = stats;
-                next();
-            }
-        }
-    );
+    linkservice.getStatsByShort(req, res, next, slink);
 };
 
 function initStatistic(shortlink, qr) {
