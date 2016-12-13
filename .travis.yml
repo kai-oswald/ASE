@@ -4,6 +4,7 @@ node_js:
 services:
   - -mongodb
 before_script:
+  - cd node
   - npm install -g mocha
   - npm install -g chai
 script: 
