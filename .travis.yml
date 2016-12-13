@@ -10,7 +10,7 @@ before_script:
 script:
 - npm test
 - cd ..
-- zip -r ASE *
+- zip -q -r ASE *
 deploy:
   provider: releases
   file: ASE.zip
