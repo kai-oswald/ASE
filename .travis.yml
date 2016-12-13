@@ -5,4 +5,6 @@ services:
   - -mongodb
 before_script:
   - npm install -g mocha
-script: npm test
+script: 
+  - cd node
+  - npm test
