@@ -9,3 +9,12 @@ before_script:
   - npm install
 script: 
   - npm test
+  - cd ..
+  - zip ASE
+deploy:
+  provider: releases
+  api_key: "VWeV29hWJtjLssL9s8gy"
+  file: ASE.zip
+  skip_cleanup: true
+  on:
+    tags: true
