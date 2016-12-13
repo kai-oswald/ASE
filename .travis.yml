@@ -11,9 +11,9 @@ script:
   - npm test
   - cd ..
   - zip -r ASE *
+  - travis setup releases
 deploy:
   provider: releases
-  api_key: "2188e35b88b1ed3356335ebf6fe997e5260e9075"
   file: ASE.zip
   skip_cleanup: true
   on:
