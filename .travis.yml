@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '6.7'
+services:
+- "-mongodb"
+before_script:
+- cd node
+- npm install -g mocha
+- npm install
+script:
+- npm test
+- cd ..
+- zip -r ASE *
+deploy:
+  provider: releases
+  file: ASE.zip
+  api_key:
+    secure: w2sO09rVuATGTgfL+0eteLZfs9tjKXeo2IQuMgfYu4HGZy1rLHELxKQVRDblVcuXlS93K1w5XuGs9Fc4HebRaKNOEV38sY8fnmCHGUkOkQ4i1qmRc6krFFMy7ksGdcdNNo7ZXuS86+qePw2LBojQZunvbZ3p1PX7haZjgydejwRXDfMju/4ZEk+o+G3X3Tz56O0xr9zSumi2xYqx0h+6gK7aOU8kEpMqjgsO0ye6rFxqNob4U94/T12FlavFTL31S6AHiSov5BwfRIMx/WXtCzspLUxJXLJ65eSPWlDIoGoV094y+mEwkwvvra2BMYGZyashQV3ZrQ4GmUMTioAtdIH86a8oZOCC1bX4VpD0LFEgdiw27kpEisiaVKK3cw23BR7ui5P7lFdzVLu0xUZvGBWriT8vSmUeF7wG1XQb6ILvMi076enzN3PrDgsg2AibWVBAiCBY18Us1pTEBRnT6e0aLHwSbM5tkO7U8ENiVZd2f6aSN0uiYWLLy1QRpMID1Z0liTXWe0y7ImaSCsygkUikxHAW5EmJbTD5nDSs+t5/r9DSX+d8PuXeR4CXDm4gqBgsJ+ndSTRphz/XX26fYWRuzh2MY9O4WZp+nQRuM2OC95T9OloWRBcENo87mWxSgiQOrI7lDyLIbOFQ2Xg52DNuN78ukhXqBUZOI9y3HKQ=
+  skip_cleanup: true
+  on:
+    tags: true   
