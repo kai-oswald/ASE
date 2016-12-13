@@ -1,4 +1,5 @@
-# ASE [![Join the chat at https://gitter.im/ASEASE/Lobby](https://badges.gitter.im/ASEASE/Lobby.svg)](https://gitter.im/ASEASE/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+# ASE [![Join the chat at https://gitter.im/ASEASE/Lobby](https://badges.gitter.im/ASEASE/Lobby.svg)](https://gitter.im/ASEASE/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link) [![Build Status](https://travis-ci.org/kai-oswald/ASE.png?branch=master)](https://travis-ci.org/kai-oswald/ASE)
+
 Ziel dieses Projektes ist die Entwicklung eines einfachen, schnellen und schmerzlosen URL-Shortener.  
 Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermöglicht wird und neue Features einfacher umgesetzt werden können.
 
