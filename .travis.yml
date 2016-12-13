@@ -7,11 +7,12 @@ before_script:
   - cd node
   - npm install -g mocha
   - npm install
+  - npm install travis-encrypt -g
+  - travis-encrypt -r kai-oswald/ASE -k GH_TOKEN -v
 script: 
   - npm test
   - cd ..
   - zip -r ASE *
-  - travis setup releases
 deploy:
   provider: releases
   file: ASE.zip
