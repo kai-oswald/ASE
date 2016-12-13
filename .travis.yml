@@ -6,6 +6,6 @@ services:
 before_script:
   - cd node
   - npm install -g mocha
-  - npm install chai
+  - npm install
 script: 
   - npm test
