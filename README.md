@@ -33,3 +33,10 @@ Hierbei wird auf den MEAN-Stack gesetzt, da dadurch eine gute Skalierung ermögl
 - cd node
 - npm install
 - npm test
+
+# Deployment
+- Änderungen mit einem Tag pushen
+- Pull-Request erstellen
+- erfolgreiche Builds mergen
+- Quellcode ist unter "Releases" als .zip und .tar.gz verfügbar
+  - ASE.zip wird aus dem Build erstellt
