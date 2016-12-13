@@ -17,4 +17,4 @@ deploy:
   file: ASE.zip
   skip_cleanup: true
   on:
-    all_branches: true
+    tags: true
