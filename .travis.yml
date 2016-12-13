@@ -8,5 +8,4 @@ before_script:
   - npm install -g mocha
   - npm install -g chai
 script: 
-  - cd node
   - npm test
