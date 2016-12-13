@@ -18,4 +18,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: false
-  branches: all_branches
+    all_branches: true
