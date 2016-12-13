@@ -13,7 +13,7 @@ script:
   - zip -r ASE *
 deploy:
   provider: releases
-  api_key: "VWeV29hWJtjLssL9s8gy"
+  api_key: "0d20310fa6b659a64674a897c9758b86de37617d"
   file: ASE.zip
   skip_cleanup: true
   on:
